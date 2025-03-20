@@ -348,28 +348,68 @@
         // Personality types with descriptions
         const personalities = [
             {
-                type: "The Adventurer",
-                description: "You're bold, spontaneous, and always ready for the next big thing! You love new experiences and aren't afraid to step outside your comfort zone."
+                type: "Powerhouse",
+                description: "A Powerhouse is a total boss who runs the game with a lethal combo of brains and style. She doesn't ask for permission, she takes what she wants and makes it look effortless."
             },
             {
-                type: "The Thinker",
-                description: "You're analytical, thoughtful, and introspective. You love diving deep into interesting topics and often find yourself lost in thought."
+                type: "Brainiac Baddie",
+                description: "A Brainiac Baddie is a genius wrapped in confidence. She breaks all the rules, redefines the game, and leaves everyone wondering how she's so smart and so fierce."
             },
             {
-                type: "The Socialite",
-                description: "You're outgoing, charismatic, and the life of every party! You thrive on social connections and love bringing people together."
+                type: "Rule Breaker",
+                description: "A Rule Breaker is the one who laughs in the face of expectations. Bold, daring, and never afraid to stir things up, she's got the guts to turn the world upside down and make it her playground."
             },
             {
-                type: "The Creator",
-                description: "You're imaginative, artistic, and always seeing the world in unique ways. You love expressing yourself and bringing beauty into the world."
+                type: "Savage Thinker",
+                description: "A Savage Thinker loves a good debate and isn't afraid to tear apart your arguments. Quick-witted and sharp, she wins every intellectual battle with a side of shade and a sprinkle of sass."
             },
             {
-                type: "The Nurturer",
-                description: "You're caring, compassionate, and always looking out for others. Your empathy and kindness make you a wonderful friend."
+                type: "Visionary Vixen",
+                description: "A Visionary Vixen doesn't just dream, she makes her vision reality. Unstoppable and determined, she's got big ideas and an even bigger drive to show everyone who's in charge."
             },
             {
-                type: "The Achiever",
-                description: "You're ambitious, determined, and focused on your goals. When you set your mind to something, there's no stopping you!"
+                type: "Chill Queen",
+                description: "A Chill Queen keeps it cool no matter the drama. She brings calm to chaos and handles everything with a relaxed confidence that makes others wish they could be as effortlessly chill as she is."
+            },
+            {
+                type: "Charmer Extraordinaire",
+                description: "A Charmer Extraordinaire has everyone eating out of her hand. With just the right amount of flirt and finesse, she can talk circles around anyone and leave them wanting more."
+            },
+            {
+                type: "Firecracker",
+                description: "A Firecracker is all spark, no filter. Her energy is explosive, her presence undeniable, and she's got a knack for turning even the most boring situations into unforgettable moments."
+            },
+            {
+                type: "Rock Solid Bae",
+                description: "A Rock Solid Bae is steady, unshakable, and keeps it real at all times. When she says she's got you, she has you, and you can count on her to handle anything life throws her way with zero drama."
+            },
+            {
+                type: "Watchdog",
+                description: "A Watchdog has your back, no questions asked. Loyal to the core and fiercely protective, she doesn't let anyone mess with her people—she's a force to be reckoned with, and she's not afraid to fight back."
+            },
+            {
+                type: "Boss Lady",
+                description: "A Boss Lady isn't just a leader; she's the one everyone's striving to be. She takes control with precision, runs circles around competition, and handles everything with power, poise, and plenty of attitude."
+            },
+            {
+                type: "Socialite",
+                description: "A Socialite is always at the center of the action, effortlessly turning every event into the hottest spot in town. Charismatic and sharp, she knows how to work a room and make everything feel like a VIP affair."
+            },
+            {
+                type: "Mastermind",
+                description: "A Mastermind doesn't just create; she dominates. Her genius is matched only by her relentless ambition, and she's always three steps ahead, making moves while everyone else is still trying to catch up."
+            },
+            {
+                type: "Globetrotter",
+                description: "A Globetrotter is a wanderer with a taste for the extraordinary. Always booking her next adventure, she lives for exploring the world and doing it in style, making every trip look like a mini runway show."
+            },
+            {
+                type: "Game Changer",
+                description: "A Game Changer doesn't follow trends, she sets them. Fearless and unstoppable, she's here to flip the script and show everyone how it's done, leaving a trail of jaw-dropped admirers in her wake."
+            },
+            {
+                type: "Party Animal",
+                description: "A Party Animal is the life of the scene, bringing the chaos and the good vibes wherever she goes. If there's a party, you'll find her at the center, making sure the fun never stops."
             }
         ];
 
@@ -382,7 +422,7 @@
         };
 
         // Store points for each personality
-        let personalityPoints = [0, 0, 0, 0, 0, 0];
+        let personalityPoints = Array(16).fill(0);
         
         // DOM elements
         const circles = document.querySelectorAll('.circle');
@@ -507,59 +547,71 @@
             };
             
             // Reset personality points
-            personalityPoints = [0, 0, 0, 0, 0, 0];
+            personalityPoints = Array(16).fill(0);
         }
         
         function calculatePersonality() {
             // Reset points
-            personalityPoints = [0, 0, 0, 0, 0, 0];
+            personalityPoints = Array(16).fill(0);
             
             // Hair color logic
             if (currentTraits.hairColor === "Blonde") {
-                personalityPoints[0] += 2; // Adventurer
-                personalityPoints[2] += 1; // Socialite
+                personalityPoints[0] += 2; // Powerhouse
+                personalityPoints[6] += 1; // Charmer Extraordinaire
+                personalityPoints[14] += 2; // Game Changer
             } else if (currentTraits.hairColor === "Dirty Blonde") {
-                personalityPoints[3] += 2; // Creator
-                personalityPoints[4] += 1; // Nurturer
+                personalityPoints[2] += 2; // Rule Breaker
+                personalityPoints[7] += 2; // Firecracker
+                personalityPoints[15] += 1; // Party Animal
             } else if (currentTraits.hairColor === "Brunette") {
-                personalityPoints[1] += 2; // Thinker
-                personalityPoints[5] += 1; // Achiever
+                personalityPoints[1] += 2; // Brainiac Baddie
+                personalityPoints[3] += 1; // Savage Thinker
+                personalityPoints[12] += 2; // Mastermind
             }
             
             // Beverage logic
             if (currentTraits.beverage === "Energy Drink" || currentTraits.beverage === "Soda") {
-                personalityPoints[0] += 2; // Adventurer
-                personalityPoints[2] += 1; // Socialite
+                personalityPoints[7] += 2; // Firecracker
+                personalityPoints[15] += 2; // Party Animal
+                personalityPoints[2] += 1; // Rule Breaker
             } else if (currentTraits.beverage === "Coffee" || currentTraits.beverage === "Juice") {
-                personalityPoints[3] += 1; // Creator
-                personalityPoints[5] += 2; // Achiever
+                personalityPoints[0] += 1; // Powerhouse
+                personalityPoints[10] += 2; // Boss Lady
+                personalityPoints[4] += 2; // Visionary Vixen
             } else if (currentTraits.beverage === "Tea" || currentTraits.beverage === "Water") {
-                personalityPoints[1] += 2; // Thinker
-                personalityPoints[4] += 1; // Nurturer
+                personalityPoints[5] += 2; // Chill Queen
+                personalityPoints[3] += 2; // Savage Thinker
+                personalityPoints[1] += 1; // Brainiac Baddie
             }
             
             // Vacation spot logic
             if (currentTraits.vacationSpot === "Beach" || currentTraits.vacationSpot === "City") {
-                personalityPoints[0] += 1; // Adventurer
-                personalityPoints[2] += 2; // Socialite
+                personalityPoints[11] += 2; // Socialite
+                personalityPoints[6] += 2; // Charmer Extraordinaire
+                personalityPoints[15] += 1; // Party Animal
             } else if (currentTraits.vacationSpot === "Countryside" || currentTraits.vacationSpot === "Forest") {
-                personalityPoints[3] += 2; // Creator
-                personalityPoints[4] += 2; // Nurturer
+                personalityPoints[5] += 2; // Chill Queen
+                personalityPoints[8] += 2; // Rock Solid Bae
+                personalityPoints[9] += 1; // Watchdog
             } else if (currentTraits.vacationSpot === "Mountains" || currentTraits.vacationSpot === "Desert") {
-                personalityPoints[1] += 1; // Thinker
-                personalityPoints[5] += 2; // Achiever
+                personalityPoints[13] += 2; // Globetrotter
+                personalityPoints[4] += 1; // Visionary Vixen
+                personalityPoints[14] += 2; // Game Changer
             }
             
             // Hobby logic
             if (currentTraits.hobby === "Sports" || currentTraits.hobby === "Gaming") {
-                personalityPoints[0] += 2; // Adventurer
-                personalityPoints[5] += 1; // Achiever
+                personalityPoints[2] += 2; // Rule Breaker
+                personalityPoints[10] += 1; // Boss Lady
+                personalityPoints[14] += 2; // Game Changer
             } else if (currentTraits.hobby === "Music" || currentTraits.hobby === "Art") {
-                personalityPoints[2] += 1; // Socialite
-                personalityPoints[3] += 2; // Creator
+                personalityPoints[4] += 2; // Visionary Vixen
+                personalityPoints[12] += 2; // Mastermind
+                personalityPoints[7] += 1; // Firecracker
             } else if (currentTraits.hobby === "Reading" || currentTraits.hobby === "Cooking") {
-                personalityPoints[1] += 2; // Thinker
-                personalityPoints[4] += 2; // Nurturer
+                personalityPoints[1] += 2; // Brainiac Baddie
+                personalityPoints[3] += 2; // Savage Thinker
+                personalityPoints[9] += 1; // Watchdog
             }
         }
         
