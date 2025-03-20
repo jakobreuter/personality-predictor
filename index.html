@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personality Predictor</title>
+    <style>
+        :root {
+            --primary-color: #fe2c55;
+            --secondary-color: #25f4ee;
+            --text-color: #333;
+            --bg-color: #f8f8f8;
+            --card-color: white;
+            --highlight-color: #fe2c55;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        header {
+            margin-bottom: 40px;
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+        
+        .circles-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .circle-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+        
+        .circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .circle:hover {
+            transform: scale(1.05);
+        }
+        
+        .circle.selected {
+            background-color: var(--highlight-color);
+            color: white;
+        }
+        
+        .circle-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .circle-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 0 10px;
+        }
+        
+        .circle-title {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: #666;
+            white-space: nowrap;
+        }
+        
+        .action-button {
+            background-color: var(--highlight-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(254, 44, 85, 0.3);
+            transition: all 0.3s;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(254, 44, 85, 0.4);
+        }
+        
+        .action-button:active {
+            transform: translateY(0);
+        }
+        
+        #random-button {
+            background-color: var(--secondary-color);
+        }
+        
+        #random-button:hover {
+            box-shadow: 0 6px 15px rgba(37, 244, 238, 0.4);
+        }
+        
+        .results-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .personality-result {
+            background-color: var(--highlight-color);
+            color: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        
+        .personality-type {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .personality-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .traits-summary {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .trait-summary-item {
+            background-color: #f5f5f5;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        .trait-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .trait-value {
+            font-weight: bold;
+            color: var(--highlight-color);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .restart-btn {
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .restart-btn:hover {
+            background-color: #333;
+        }
+        
+        .spinning {
+            animation: spin 0.5s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Personality Predictor</h1>
+            <p>Click the circles to select your traits or use random selection</p>
+            <button id="view-logic-button" class="action-button" style="background-color: var(--secondary-color); position: absolute; top: 30px; right: 30px;">View Logic Diagram</button>
+        </header>
+        
+        <div class="circles-container">
+            <!-- Hair Color Circle -->
+            <div class="circle-wrapper">
+                <div class="circle-title">Hair Color</div>
+                <div class="circle" data-category="hairColor">
+                    <div class="circle-icon">👩</div>
+                    <div class="circle-label">Select Hair Color</div>
+                </div>
+            </div>
+            
+            <!-- Beverage Circle -->
+            <div class="circle-wrapper">
+                <div class="circle-title">Favorite Beverage</div>
+                <div class="circle" data-category="beverage">
+                    <div class="circle-icon">🥤</div>
+                    <div class="circle-label">Select Beverage</div>
+                </div>
+            </div>
+            
+            <!-- Vacation Circle -->
+            <div class="circle-wrapper">
+                <div class="circle-title">Dream Vacation</div>
+                <div class="circle" data-category="vacationSpot">
+                    <div class="circle-icon">✈️</div>
+                    <div class="circle-label">Select Vacation</div>
+                </div>
+            </div>
+            
+            <!-- Hobby Circle -->
+            <div class="circle-wrapper">
+                <div class="circle-title">Favorite Hobby</div>
+                <div class="circle" data-category="hobby">
+                    <div class="circle-icon">🎨</div>
+                    <div class="circle-label">Select Hobby</div>
+                </div>
+            </div>
+        </div>
+        
+        <button id="random-button" class="action-button">Random Selection</button>
+        <button id="calculate-button" class="action-button" style="display: none;">See Your Personality</button>
+        
+        <div id="results-section" class="results-section">
+            <div class="traits-summary">
+                <div class="trait-summary-item">
+                    <div class="trait-label">Hair Color</div>
+                    <div id="hair-result" class="trait-value">Blonde</div>
+                </div>
+                <div class="trait-summary-item">
+                    <div class="trait-label">Beverage</div>
+                    <div id="beverage-result" class="trait-value">Coffee</div>
+                </div>
+                <div class="trait-summary-item">
+                    <div class="trait-label">Vacation</div>
+                    <div id="vacation-result" class="trait-value">Beach</div>
+                </div>
+                <div class="trait-summary-item">
+                    <div class="trait-label">Hobby</div>
+                    <div id="hobby-result" class="trait-value">Reading</div>
+                </div>
+            </div>
+            
+            <div class="personality-result">
+                <div id="personality-type" class="personality-type">The Adventurer</div>
+                <div id="personality-description" class="personality-description">
+                    You're bold, spontaneous, and always ready for the next big thing! You love new experiences and aren't afraid to step outside your comfort zone.
+                </div>
+            </div>
+            
+            <button id="restart-button" class="restart-btn">Start Over</button>
+        </div>
+    </div>
+
+    <script>
+        // Define the 4 categories with trait options
+        const categories = {
+            hairColor: [
+                { value: "Blonde", icon: "👱‍♀️", label: "Blonde" },
+                { value: "Dirty Blonde", icon: "👱", label: "Dirty Blonde" },
+                { value: "Brunette", icon: "👩", label: "Brunette" }
+            ],
+            beverage: [
+                { value: "Coffee", icon: "☕", label: "Coffee" },
+                { value: "Tea", icon: "🍵", label: "Tea" },
+                { value: "Water", icon: "💧", label: "Water" },
+                { value: "Soda", icon: "🥤", label: "Soda" },
+                { value: "Juice", icon: "🧃", label: "Juice" },
+                { value: "Energy Drink", icon: "⚡", label: "Energy Drink" }
+            ],
+            vacationSpot: [
+                { value: "Beach", icon: "🏖️", label: "Beach" },
+                { value: "Mountains", icon: "🏔️", label: "Mountains" },
+                { value: "City", icon: "🏙️", label: "City" },
+                { value: "Countryside", icon: "🏞️", label: "Countryside" },
+                { value: "Desert", icon: "🏜️", label: "Desert" },
+                { value: "Forest", icon: "🌳", label: "Forest" }
+            ],
+            hobby: [
+                { value: "Reading", icon: "📚", label: "Reading" },
+                { value: "Gaming", icon: "🎮", label: "Gaming" },
+                { value: "Sports", icon: "⚽", label: "Sports" },
+                { value: "Music", icon: "🎵", label: "Music" },
+                { value: "Art", icon: "🎨", label: "Art" },
+                { value: "Cooking", icon: "🍳", label: "Cooking" }
+            ]
+        };
+
+        // Personality types with descriptions
+        const personalities = [
+            {
+                type: "The Adventurer",
+                description: "You're bold, spontaneous, and always ready for the next big thing! You love new experiences and aren't afraid to step outside your comfort zone."
+            },
+            {
+                type: "The Thinker",
+                description: "You're analytical, thoughtful, and introspective. You love diving deep into interesting topics and often find yourself lost in thought."
+            },
+            {
+                type: "The Socialite",
+                description: "You're outgoing, charismatic, and the life of every party! You thrive on social connections and love bringing people together."
+            },
+            {
+                type: "The Creator",
+                description: "You're imaginative, artistic, and always seeing the world in unique ways. You love expressing yourself and bringing beauty into the world."
+            },
+            {
+                type: "The Nurturer",
+                description: "You're caring, compassionate, and always looking out for others. Your empathy and kindness make you a wonderful friend."
+            },
+            {
+                type: "The Achiever",
+                description: "You're ambitious, determined, and focused on your goals. When you set your mind to something, there's no stopping you!"
+            }
+        ];
+
+        // Store current trait values
+        let currentTraits = {
+            hairColor: null,
+            beverage: null,
+            vacationSpot: null,
+            hobby: null
+        };
+
+        // Store points for each personality
+        let personalityPoints = [0, 0, 0, 0, 0, 0];
+        
+        // DOM elements
+        const circles = document.querySelectorAll('.circle');
+        const randomButton = document.getElementById('random-button');
+        const calculateButton = document.getElementById('calculate-button');
+        const resultsSection = document.getElementById('results-section');
+        const restartButton = document.getElementById('restart-button');
+        
+        // Results elements
+        const hairResult = document.getElementById('hair-result');
+        const beverageResult = document.getElementById('beverage-result');
+        const vacationResult = document.getElementById('vacation-result');
+        const hobbyResult = document.getElementById('hobby-result');
+        const personalityTypeEl = document.getElementById('personality-type');
+        const personalityDescriptionEl = document.getElementById('personality-description');
+        
+        let spinningIntervals = {};
+        
+        // Circle click handlers
+        circles.forEach(circle => {
+            circle.addEventListener('click', function() {
+                const category = this.dataset.category;
+                startSpinning(category);
+            });
+        });
+        
+        function startSpinning(category) {
+            // Clear existing interval if any
+            if (spinningIntervals[category]) {
+                clearInterval(spinningIntervals[category]);
+            }
+            
+            const circle = document.querySelector(`[data-category="${category}"]`);
+            const options = categories[category];
+            let currentIndex = 0;
+            
+            // Add spinning animation
+            circle.classList.add('spinning');
+            
+            // Start spinning through options
+            spinningIntervals[category] = setInterval(() => {
+                const option = options[currentIndex];
+                circle.querySelector('.circle-icon').textContent = option.icon;
+                circle.querySelector('.circle-label').textContent = option.label;
+                
+                currentIndex = (currentIndex + 1) % options.length;
+            }, 100);
+            
+            // Stop after 2 seconds
+            setTimeout(() => {
+                clearInterval(spinningIntervals[category]);
+                circle.classList.remove('spinning');
+                
+                // Select random option
+                const randomIndex = Math.floor(Math.random() * options.length);
+                const selectedOption = options[randomIndex];
+                
+                // Update circle with selected option
+                circle.querySelector('.circle-icon').textContent = selectedOption.icon;
+                circle.querySelector('.circle-label').textContent = selectedOption.label;
+                circle.classList.add('selected');
+                
+                // Store selected value
+                currentTraits[category] = selectedOption.value;
+                
+                // Check if all traits are selected
+                checkAllTraitsSelected();
+            }, 2000);
+        }
+        
+        function checkAllTraitsSelected() {
+            const allSelected = Object.values(currentTraits).every(trait => trait !== null);
+            if (allSelected) {
+                calculateButton.style.display = 'block';
+            }
+        }
+        
+        randomButton.addEventListener('click', function() {
+            // Clear all intervals
+            Object.values(spinningIntervals).forEach(interval => clearInterval(interval));
+            
+            // Start spinning all circles
+            Object.keys(categories).forEach(category => {
+                startSpinning(category);
+            });
+        });
+        
+        calculateButton.addEventListener('click', function() {
+            calculatePersonality();
+            displayResults();
+            resultsSection.style.display = 'block';
+            calculateButton.style.display = 'none';
+        });
+        
+        restartButton.addEventListener('click', function() {
+            resetSelections();
+            resultsSection.style.display = 'none';
+            calculateButton.style.display = 'none';
+        });
+        
+        // Navigation button to flow diagram
+        document.getElementById('view-logic-button').addEventListener('click', function() {
+            window.location.href = 'flow_diagram.html';
+        });
+        
+        function resetSelections() {
+            // Clear all selections
+            circles.forEach(circle => {
+                circle.classList.remove('selected');
+                const category = circle.dataset.category;
+                const defaultOption = categories[category][0];
+                circle.querySelector('.circle-icon').textContent = defaultOption.icon;
+                circle.querySelector('.circle-label').textContent = defaultOption.label;
+            });
+            
+            // Reset current traits
+            currentTraits = {
+                hairColor: null,
+                beverage: null,
+                vacationSpot: null,
+                hobby: null
+            };
+            
+            // Reset personality points
+            personalityPoints = [0, 0, 0, 0, 0, 0];
+        }
+        
+        function calculatePersonality() {
+            // Reset points
+            personalityPoints = [0, 0, 0, 0, 0, 0];
+            
+            // Hair color logic
+            if (currentTraits.hairColor === "Blonde") {
+                personalityPoints[0] += 2; // Adventurer
+                personalityPoints[2] += 1; // Socialite
+            } else if (currentTraits.hairColor === "Dirty Blonde") {
+                personalityPoints[3] += 2; // Creator
+                personalityPoints[4] += 1; // Nurturer
+            } else if (currentTraits.hairColor === "Brunette") {
+                personalityPoints[1] += 2; // Thinker
+                personalityPoints[5] += 1; // Achiever
+            }
+            
+            // Beverage logic
+            if (currentTraits.beverage === "Energy Drink" || currentTraits.beverage === "Soda") {
+                personalityPoints[0] += 2; // Adventurer
+                personalityPoints[2] += 1; // Socialite
+            } else if (currentTraits.beverage === "Coffee" || currentTraits.beverage === "Juice") {
+                personalityPoints[3] += 1; // Creator
+                personalityPoints[5] += 2; // Achiever
+            } else if (currentTraits.beverage === "Tea" || currentTraits.beverage === "Water") {
+                personalityPoints[1] += 2; // Thinker
+                personalityPoints[4] += 1; // Nurturer
+            }
+            
+            // Vacation spot logic
+            if (currentTraits.vacationSpot === "Beach" || currentTraits.vacationSpot === "City") {
+                personalityPoints[0] += 1; // Adventurer
+                personalityPoints[2] += 2; // Socialite
+            } else if (currentTraits.vacationSpot === "Countryside" || currentTraits.vacationSpot === "Forest") {
+                personalityPoints[3] += 2; // Creator
+                personalityPoints[4] += 2; // Nurturer
+            } else if (currentTraits.vacationSpot === "Mountains" || currentTraits.vacationSpot === "Desert") {
+                personalityPoints[1] += 1; // Thinker
+                personalityPoints[5] += 2; // Achiever
+            }
+            
+            // Hobby logic
+            if (currentTraits.hobby === "Sports" || currentTraits.hobby === "Gaming") {
+                personalityPoints[0] += 2; // Adventurer
+                personalityPoints[5] += 1; // Achiever
+            } else if (currentTraits.hobby === "Music" || currentTraits.hobby === "Art") {
+                personalityPoints[2] += 1; // Socialite
+                personalityPoints[3] += 2; // Creator
+            } else if (currentTraits.hobby === "Reading" || currentTraits.hobby === "Cooking") {
+                personalityPoints[1] += 2; // Thinker
+                personalityPoints[4] += 2; // Nurturer
+            }
+        }
+        
+        function displayResults() {
+            // Update trait results
+            hairResult.textContent = currentTraits.hairColor;
+            beverageResult.textContent = currentTraits.beverage;
+            vacationResult.textContent = currentTraits.vacationSpot;
+            hobbyResult.textContent = currentTraits.hobby;
+            
+            // Find personality with highest points
+            const maxPoints = Math.max(...personalityPoints);
+            const personalityIndex = personalityPoints.indexOf(maxPoints);
+            const resultPersonality = personalities[personalityIndex];
+            
+            // Update personality results
+            personalityTypeEl.textContent = resultPersonality.type;
+            personalityDescriptionEl.textContent = resultPersonality.description;
+        }
+    </script>
+</body>
+</html> 
