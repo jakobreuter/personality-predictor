@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide shows how to implement the personality predictor in TikTok Effect House using a simplified version of the decision tree logic.
+This guide shows how to implement the personality predictor in TikTok Effect House using the decision tree logic with our 16 empowering female personas.
 
 ## Step 1: Set Up Variables
 
@@ -16,28 +16,68 @@ const hobbies = ["Reading", "Gaming", "Sports", "Music", "Art", "Cooking"];
 // Personality types with descriptions
 const personalities = [
   {
-    type: "The Adventurer",
-    description: "You're bold, spontaneous, and always ready for the next big thing!"
+    type: "Powerhouse",
+    description: "A total boss who runs the game with a lethal combo of brains and style."
   },
   {
-    type: "The Thinker",
-    description: "You're analytical, thoughtful, and introspective."
+    type: "Brainiac Baddie",
+    description: "A genius wrapped in confidence who breaks all the rules and redefines the game."
   },
   {
-    type: "The Socialite",
-    description: "You're outgoing, charismatic, and the life of every party!"
+    type: "Rule Breaker",
+    description: "Bold, daring, and never afraid to stir things up with guts to turn the world upside down."
   },
   {
-    type: "The Creator",
-    description: "You're imaginative, artistic, and always seeing the world in unique ways."
+    type: "Savage Thinker",
+    description: "Quick-witted and sharp, wins every intellectual battle with shade and sass."
   },
   {
-    type: "The Nurturer",
-    description: "You're caring, compassionate, and always looking out for others."
+    type: "Visionary Vixen",
+    description: "Doesn't just dream, makes vision reality with unstoppable determination."
   },
   {
-    type: "The Achiever",
-    description: "You're ambitious, determined, and focused on your goals."
+    type: "Chill Queen",
+    description: "Keeps it cool no matter the drama with a relaxed confidence everyone envies."
+  },
+  {
+    type: "Charmer Extraordinaire",
+    description: "Has everyone eating out of her hand with just the right flirt and finesse."
+  },
+  {
+    type: "Firecracker",
+    description: "All spark, no filter, with explosive energy that turns boring to unforgettable."
+  },
+  {
+    type: "Rock Solid Bae",
+    description: "Steady, unshakable, and keeps it real at all times with zero drama."
+  },
+  {
+    type: "Watchdog",
+    description: "Loyal to the core and fiercely protective of her people."
+  },
+  {
+    type: "Boss Lady",
+    description: "Takes control with precision and handles everything with power and poise."
+  },
+  {
+    type: "Socialite",
+    description: "Always at the center of the action, making every event the hottest spot in town."
+  },
+  {
+    type: "Mastermind",
+    description: "Always three steps ahead, making moves while everyone else is catching up."
+  },
+  {
+    type: "Globetrotter",
+    description: "A wanderer with taste for the extraordinary who explores the world in style."
+  },
+  {
+    type: "Game Changer",
+    description: "Doesn't follow trends, she sets them and shows everyone how it's done."
+  },
+  {
+    type: "Party Animal",
+    description: "The life of the scene, bringing chaos and good vibes wherever she goes."
   }
 ];
 
@@ -50,7 +90,7 @@ let currentTraits = {
 };
 
 // Store points for each personality
-let personalityPoints = [0, 0, 0, 0, 0, 0];
+let personalityPoints = Array(16).fill(0);
 ```
 
 ## Step 2: Create Random Selection Function
@@ -67,7 +107,7 @@ function generateRandomTraits() {
   currentTraits.hobby = getRandomItem(hobbies);
   
   // Reset points
-  personalityPoints = [0, 0, 0, 0, 0, 0];
+  personalityPoints = Array(16).fill(0);
 }
 ```
 
@@ -77,50 +117,62 @@ function generateRandomTraits() {
 function calculatePersonalityPoints() {
   // Hair color logic
   if (currentTraits.hairColor === "Blonde") {
-    personalityPoints[0] += 2; // Adventurer
-    personalityPoints[2] += 1; // Socialite
+    personalityPoints[0] += 2; // Powerhouse
+    personalityPoints[6] += 1; // Charmer Extraordinaire
+    personalityPoints[14] += 2; // Game Changer
   } else if (currentTraits.hairColor === "Dirty Blonde") {
-    personalityPoints[3] += 2; // Creator
-    personalityPoints[4] += 1; // Nurturer
+    personalityPoints[2] += 2; // Rule Breaker
+    personalityPoints[7] += 2; // Firecracker
+    personalityPoints[15] += 1; // Party Animal
   } else if (currentTraits.hairColor === "Brunette") {
-    personalityPoints[1] += 2; // Thinker
-    personalityPoints[5] += 1; // Achiever
+    personalityPoints[1] += 2; // Brainiac Baddie
+    personalityPoints[3] += 1; // Savage Thinker
+    personalityPoints[12] += 2; // Mastermind
   }
   
   // Beverage logic
   if (currentTraits.beverage === "Energy Drink" || currentTraits.beverage === "Soda") {
-    personalityPoints[0] += 2; // Adventurer
-    personalityPoints[2] += 1; // Socialite
+    personalityPoints[7] += 2; // Firecracker
+    personalityPoints[15] += 2; // Party Animal
+    personalityPoints[2] += 1; // Rule Breaker
   } else if (currentTraits.beverage === "Coffee" || currentTraits.beverage === "Juice") {
-    personalityPoints[3] += 1; // Creator
-    personalityPoints[5] += 2; // Achiever
+    personalityPoints[0] += 1; // Powerhouse
+    personalityPoints[10] += 2; // Boss Lady
+    personalityPoints[4] += 2; // Visionary Vixen
   } else if (currentTraits.beverage === "Tea" || currentTraits.beverage === "Water") {
-    personalityPoints[1] += 2; // Thinker
-    personalityPoints[4] += 1; // Nurturer
+    personalityPoints[5] += 2; // Chill Queen
+    personalityPoints[3] += 2; // Savage Thinker
+    personalityPoints[1] += 1; // Brainiac Baddie
   }
   
   // Vacation spot logic
   if (currentTraits.vacationSpot === "Beach" || currentTraits.vacationSpot === "City") {
-    personalityPoints[0] += 1; // Adventurer
-    personalityPoints[2] += 2; // Socialite
+    personalityPoints[11] += 2; // Socialite
+    personalityPoints[6] += 2; // Charmer Extraordinaire
+    personalityPoints[15] += 1; // Party Animal
   } else if (currentTraits.vacationSpot === "Countryside" || currentTraits.vacationSpot === "Forest") {
-    personalityPoints[3] += 2; // Creator
-    personalityPoints[4] += 2; // Nurturer
+    personalityPoints[5] += 2; // Chill Queen
+    personalityPoints[8] += 2; // Rock Solid Bae
+    personalityPoints[9] += 1; // Watchdog
   } else if (currentTraits.vacationSpot === "Mountains" || currentTraits.vacationSpot === "Desert") {
-    personalityPoints[1] += 1; // Thinker
-    personalityPoints[5] += 2; // Achiever
+    personalityPoints[13] += 2; // Globetrotter
+    personalityPoints[4] += 1; // Visionary Vixen
+    personalityPoints[14] += 2; // Game Changer
   }
   
   // Hobby logic
   if (currentTraits.hobby === "Sports" || currentTraits.hobby === "Gaming") {
-    personalityPoints[0] += 2; // Adventurer
-    personalityPoints[5] += 1; // Achiever
+    personalityPoints[2] += 2; // Rule Breaker
+    personalityPoints[10] += 1; // Boss Lady
+    personalityPoints[14] += 2; // Game Changer
   } else if (currentTraits.hobby === "Music" || currentTraits.hobby === "Art") {
-    personalityPoints[2] += 1; // Socialite
-    personalityPoints[3] += 2; // Creator
+    personalityPoints[4] += 2; // Visionary Vixen
+    personalityPoints[12] += 2; // Mastermind
+    personalityPoints[7] += 1; // Firecracker
   } else if (currentTraits.hobby === "Reading" || currentTraits.hobby === "Cooking") {
-    personalityPoints[1] += 2; // Thinker
-    personalityPoints[4] += 2; // Nurturer
+    personalityPoints[1] += 2; // Brainiac Baddie
+    personalityPoints[3] += 2; // Savage Thinker
+    personalityPoints[9] += 1; // Watchdog
   }
 }
 ```
@@ -181,5 +233,6 @@ function runPersonalityFilter() {
 - Add **Interactive Elements** like buttons for user triggering
 - Consider using **3D Text** for more visual impact
 - Add **Sound Effects** for each trait reveal
+- Create unique visuals or stickers for each of the 16 personality types
 
-This simplified implementation focuses on the core logic while being optimized for TikTok Effect House's capabilities. 
+This implementation focuses on optimizing for TikTok Effect House's capabilities while preserving the personality prediction logic from the web version. 
