@@ -463,12 +463,12 @@
                 { icon: "✨", label: "Intuitive" }
             ],
             toxic: [
-                { icon: "✓", label: "Perfectionist" },
-                { icon: "🤔", label: "Overthinker" },
-                { icon: "⏰", label: "Procrastinator" },
-                { icon: "👍", label: "People Pleaser" },
-                { icon: "💨", label: "Impulsive" },
-                { icon: "🧱", label: "Stubborn" }
+                { icon: "👑", label: "Main Character Energy" },
+                { icon: "📱", label: "Phone Addiction" },
+                { icon: "💭", label: "Overthinking Texts" },
+                { icon: "🕺", label: "TikTok-ing Instead of Sleeping" },
+                { icon: "🛍️", label: "Online Shopping Therapy" },
+                { icon: "🙅‍♀️", label: "Cancel Plans Last Minute" }
             ]
         };
         
@@ -546,6 +546,31 @@
             ]
         };
         
+        // Personalities with their corresponding hair colors
+        const personalityHairColors = {
+            // Salted Caramelo personalities
+            "Powerhouse": "Salted Caramelo",
+            "Rule Breaker": "Salted Caramelo",
+            "Game Changer": "Salted Caramelo",
+            "Firecracker": "Salted Caramelo",
+            "Party Animal": "Salted Caramelo",
+            
+            // Tres Leches personalities
+            "Brainiac Baddie": "Tres Leches",
+            "Savage Thinker": "Tres Leches",
+            "Mastermind": "Tres Leches",
+            "Boss Lady": "Tres Leches",
+            "Visionary Vixen": "Tres Leches",
+            
+            // Coconut Flan personalities
+            "Chill Queen": "Coconut Flan",
+            "Charmer Extraordinaire": "Coconut Flan",
+            "Rock Solid Bae": "Coconut Flan",
+            "Watchdog": "Coconut Flan",
+            "Socialite": "Coconut Flan",
+            "Globetrotter": "Coconut Flan"
+        };
+        
         // DOM elements
         const circles = document.querySelectorAll('.circle');
         const randomButton = document.getElementById('random-button');
@@ -618,104 +643,162 @@
             }, 3000);
         }
         
-        // Calculate hair color points
-        function calculateHairColorPoints() {
+        // Calculate personality points
+        function calculatePersonalityPoints() {
+            // Initialize points for each personality
             const points = {
-                "Salted Caramelo": 0,
-                "Tres Leches": 0,
-                "Coconut Flan": 0
+                "Powerhouse": 0,
+                "Rule Breaker": 0,
+                "Game Changer": 0,
+                "Firecracker": 0,
+                "Party Animal": 0,
+                "Brainiac Baddie": 0,
+                "Savage Thinker": 0,
+                "Mastermind": 0,
+                "Boss Lady": 0,
+                "Visionary Vixen": 0,
+                "Chill Queen": 0,
+                "Charmer Extraordinaire": 0,
+                "Rock Solid Bae": 0,
+                "Watchdog": 0,
+                "Socialite": 0,
+                "Globetrotter": 0
             };
             
             // Sign points
             const sign = selectedTraits.sign.label;
-            if (["Aries", "Leo", "Sagittarius"].includes(sign)) {
-                points["Salted Caramelo"] += 3;
-            } else if (["Gemini", "Libra", "Aquarius"].includes(sign)) {
-                points["Tres Leches"] += 3;
-            } else if (["Taurus", "Virgo", "Capricorn"].includes(sign)) {
-                points["Coconut Flan"] += 3;
-            } else {
-                // Water signs
-                points["Coconut Flan"] += 2;
-                points["Tres Leches"] += 1;
+            if (["Aries", "Leo", "Sagittarius"].includes(sign)) { // Fire signs
+                points["Powerhouse"] += 3;
+                points["Rule Breaker"] += 2;
+            } else if (["Gemini", "Libra", "Aquarius"].includes(sign)) { // Air signs
+                points["Brainiac Baddie"] += 3;
+                points["Savage Thinker"] += 2;
+            } else if (["Taurus", "Virgo", "Capricorn"].includes(sign)) { // Earth signs
+                points["Chill Queen"] += 3;
+                points["Watchdog"] += 2;
+            } else { // Water signs (Cancer, Scorpio, Pisces)
+                points["Charmer Extraordinaire"] += 3;
+                points["Rock Solid Bae"] += 2;
             }
             
             // Job points
             const job = selectedTraits.job.label;
-            if (["Creative", "Tech"].includes(job)) {
-                points["Salted Caramelo"] += 2;
-                points["Tres Leches"] += 1;
-            } else if (["Corporate", "Medical"].includes(job)) {
-                points["Tres Leches"] += 3;
-            } else {
-                // Educator, Service
-                points["Coconut Flan"] += 3;
+            if (job === "Creative") {
+                points["Game Changer"] += 3;
+                points["Visionary Vixen"] += 2;
+            } else if (job === "Corporate") {
+                points["Boss Lady"] += 3;
+                points["Mastermind"] += 2;
+            } else if (job === "Medical") {
+                points["Rock Solid Bae"] += 3;
+                points["Watchdog"] += 2;
+            } else if (job === "Educator") {
+                points["Chill Queen"] += 3;
+                points["Brainiac Baddie"] += 2;
+            } else if (job === "Tech") {
+                points["Mastermind"] += 3;
+                points["Savage Thinker"] += 2;
+            } else if (job === "Service") {
+                points["Socialite"] += 3;
+                points["Charmer Extraordinaire"] += 2;
             }
             
             // Type points
             const type = selectedTraits.type.label;
-            if (["Extrovert", "Intuitive"].includes(type)) {
-                points["Salted Caramelo"] += 3;
-            } else if (["Logical", "Ambivert"].includes(type)) {
-                points["Tres Leches"] += 3;
-            } else {
-                // Introvert, Emotional
-                points["Coconut Flan"] += 3;
+            if (type === "Extrovert") {
+                points["Party Animal"] += 3;
+                points["Socialite"] += 2;
+                points["Firecracker"] += 1;
+            } else if (type === "Introvert") {
+                points["Chill Queen"] += 3;
+                points["Watchdog"] += 2;
+                points["Mastermind"] += 1;
+            } else if (type === "Ambivert") {
+                points["Game Changer"] += 3;
+                points["Rock Solid Bae"] += 2;
+            } else if (type === "Logical") {
+                points["Brainiac Baddie"] += 3;
+                points["Savage Thinker"] += 2;
+            } else if (type === "Emotional") {
+                points["Charmer Extraordinaire"] += 3;
+                points["Firecracker"] += 2;
+            } else if (type === "Intuitive") {
+                points["Visionary Vixen"] += 3;
+                points["Rule Breaker"] += 2;
             }
             
             // Toxic trait points
             const toxic = selectedTraits.toxic.label;
-            if (["Impulsive", "Stubborn"].includes(toxic)) {
-                points["Salted Caramelo"] += 3;
-            } else if (["Perfectionist", "Overthinker"].includes(toxic)) {
-                points["Tres Leches"] += 3;
-            } else {
-                // Procrastinator, People Pleaser
-                points["Coconut Flan"] += 3;
+            if (toxic === "Main Character Energy") {
+                points["Powerhouse"] += 3;
+                points["Party Animal"] += 2;
+            } else if (toxic === "Phone Addiction") {
+                points["Socialite"] += 3;
+                points["Mastermind"] += 1;
+            } else if (toxic === "Overthinking Texts") {
+                points["Brainiac Baddie"] += 2;
+                points["Chill Queen"] += 1;
+            } else if (toxic === "TikTok-ing Instead of Sleeping") {
+                points["Firecracker"] += 3;
+                points["Game Changer"] += 2;
+            } else if (toxic === "Online Shopping Therapy") {
+                points["Visionary Vixen"] += 2;
+                points["Boss Lady"] += 2;
+            } else if (toxic === "Cancel Plans Last Minute") {
+                points["Savage Thinker"] += 2;
+                points["Rock Solid Bae"] += 1;
             }
             
             return points;
         }
         
-        // Determine hair color and personality
+        // Determine personality and hair color
         function determineResult() {
-            const points = calculateHairColorPoints();
+            const personalityPoints = calculatePersonalityPoints();
             
-            // Find hair color with highest points
+            // Find personality with highest points
             let maxPoints = 0;
-            let topHairColors = [];
+            let topPersonalities = [];
             
-            for (const hairColor in points) {
-                if (points[hairColor] > maxPoints) {
-                    maxPoints = points[hairColor];
-                    topHairColors = [hairColor];
-                } else if (points[hairColor] === maxPoints) {
-                    topHairColors.push(hairColor);
+            for (const personality in personalityPoints) {
+                if (personalityPoints[personality] > maxPoints) {
+                    maxPoints = personalityPoints[personality];
+                    topPersonalities = [personality];
+                } else if (personalityPoints[personality] === maxPoints) {
+                    topPersonalities.push(personality);
                 }
             }
             
             // Choose randomly if there's a tie
-            const hairColor = topHairColors[Math.floor(Math.random() * topHairColors.length)];
+            const personality = topPersonalities[Math.floor(Math.random() * topPersonalities.length)];
             
-            // Choose random personality for the hair color
-            const personalityOptions = personalities[hairColor];
-            const personalityIndex = Math.floor(Math.random() * personalityOptions.length);
-            const personality = personalityOptions[personalityIndex];
+            // Get corresponding hair color
+            const hairColor = personalityHairColors[personality];
             
-            return { hairColor, personality };
+            return { personality, hairColor };
         }
         
         // Show results
         function showResults() {
-            const { hairColor, personality } = determineResult();
+            const { personality, hairColor } = determineResult();
             
             // Update results
             hairColorBadge.textContent = hairColor;
             hairColorBadge.className = 'hair-color-result';
             hairColorBadge.classList.add(hairColor.toLowerCase().replace(/\s+/g, '-'));
             
-            personalityResult.textContent = `You are a ${hairColor} type of ${personality.name}`;
-            document.getElementById('personality-description').textContent = personality.description;
+            personalityResult.textContent = `You are a ${hairColor} type of ${personality}`;
+            
+            // Find the personality's description
+            let personalityDescription = "";
+            for (const color in personalities) {
+                const found = personalities[color].find(p => p.name === personality);
+                if (found) {
+                    personalityDescription = found.description;
+                    break;
+                }
+            }
+            document.getElementById('personality-description').textContent = personalityDescription;
             
             // Set product image based on hair color
             const productImage = document.getElementById('product-image');
