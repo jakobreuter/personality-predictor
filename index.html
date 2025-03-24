@@ -542,26 +542,26 @@
         // Personalities with their corresponding hair colors
         const personalityHairColors = {
             // Salted Caramelo personalities
-            "Powerhouse": "Dark Blonde",
-            "Rule Breaker": "Dark Blonde",
-            "Game Changer": "Dark Blonde",
-            "Firecracker": "Dark Blonde",
-            "Party Animal": "Dark Blonde",
+            "Powerhouse": "Salted Caramelo",
+            "Rule Breaker": "Salted Caramelo",
+            "Game Changer": "Salted Caramelo",
+            "Firecracker": "Salted Caramelo",
+            "Party Animal": "Salted Caramelo",
             
             // Tres Leches personalities
-            "Brainiac Baddie": "Golden Blonde",
-            "Savage Thinker": "Golden Blonde",
-            "Mastermind": "Golden Blonde",
-            "Boss Lady": "Golden Blonde",
-            "Visionary Vixen": "Golden Blonde",
+            "Brainiac Baddie": "Tres Leches",
+            "Savage Thinker": "Tres Leches",
+            "Mastermind": "Tres Leches",
+            "Boss Lady": "Tres Leches",
+            "Visionary Vixen": "Tres Leches",
             
             // Coconut Flan personalities
-            "Chill Queen": "Light Brown",
-            "Charmer Extraordinaire": "Light Brown",
-            "Rock Solid Bae": "Light Brown",
-            "Watchdog": "Light Brown",
-            "Socialite": "Light Brown",
-            "Globetrotter": "Light Brown"
+            "Chill Queen": "Coconut Flan",
+            "Charmer Extraordinaire": "Coconut Flan",
+            "Rock Solid Bae": "Coconut Flan",
+            "Watchdog": "Coconut Flan",
+            "Socialite": "Coconut Flan",
+            "Globetrotter": "Coconut Flan"
         };
         
         // DOM elements
@@ -771,8 +771,8 @@
             hairColorBadge.className = 'hair-color-result';
             hairColorBadge.classList.add(hairColor.toLowerCase().replace(/\s+/g, '-'));
             
-            const hairColorName = personalityHairColors[personality];
-            personalityResult.textContent = `You are a ${hairColorName} ${personality}`;
+            // Update the personality result text
+            personalityResult.textContent = `You are a ${hairColor} ${personality}`;
             
             // Find the personality's description
             let personalityDescription = "";
@@ -790,13 +790,13 @@
             const productLink = document.getElementById('product-link');
             
             if (hairColor === "Salted Caramelo") {
-                productImage.src = "salted-caramelo.webp"; // Replace with actual image path
+                productImage.src = "salted-caramelo.webp";
                 productLink.href = "https://www.garnierusa.com/about-our-brands/hair-color/nutrisse-ultra-color/caramelo-blondes/ultra-color-lc1-high-lift-light-brown";
             } else if (hairColor === "Tres Leches") {
-                productImage.src = "tres-leches.webp"; // Replace with actual image path
+                productImage.src = "tres-leches.webp";
                 productLink.href = "https://www.garnierusa.com/about-our-brands/hair-color/nutrisse-ultra-color/caramelo-blondes/ultra-color-lc3-high-lift-blonde";
-            } else {
-                productImage.src = "coconut-flan.webp"; // Replace with actual image path
+            } else if (hairColor === "Coconut Flan") {
+                productImage.src = "coconut-flan.webp";
                 productLink.href = "https://www.garnierusa.com/about-our-brands/hair-color/nutrisse-ultra-color/caramelo-blondes/ultra-color-lc2-high-lift-dark-blonde";
             }
             
