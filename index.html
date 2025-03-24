@@ -369,12 +369,12 @@
             <div class="circles-container">
                 <div class="circle" data-category="talent">
                     <div class="circle-icon">🧠</div>
-                    <div class="circle-title">Fast Learning</div>
+                    <div class="circle-title">Hidden Talent</div>
                     <div class="circle-value">Click to spin</div>
                 </div>
                 <div class="circle" data-category="love">
-                    <div class="circle-icon">🎁</div>
-                    <div class="circle-title">Receiving Gifts</div>
+                    <div class="circle-icon">❤️</div>
+                    <div class="circle-title">Love Language</div>
                     <div class="circle-value">Click to spin</div>
                 </div>
                 <div class="circle" data-category="type">
@@ -834,8 +834,12 @@
                 const category = circle.dataset.category;
                 circle.querySelector('.circle-icon').textContent = 
                     category === 'talent' ? '🧠' : 
-                    category === 'love' ? '🎁' : 
+                    category === 'love' ? '❤️' : 
                     category === 'type' ? '🧠' : '😅';
+                circle.querySelector('.circle-title').textContent = 
+                    category === 'talent' ? 'Hidden Talent' : 
+                    category === 'love' ? 'Love Language' : 
+                    category === 'type' ? 'Your Type' : 'Toxic Trait';
                 circle.querySelector('.circle-value').textContent = 'Click to spin';
             });
             
