@@ -8,10 +8,10 @@ This guide shows how to implement the personality predictor in TikTok Effect Hou
 
 ```javascript
 // Define arrays for trait options
-const hairColors = ["Blonde", "Dirty Blonde", "Brunette"];
-const beverages = ["Coffee", "Tea", "Water", "Soda", "Juice", "Energy Drink"];
-const vacationSpots = ["Beach", "Mountains", "City", "Countryside", "Desert", "Forest"];
-const hobbies = ["Reading", "Gaming", "Sports", "Music", "Art", "Cooking"];
+const hiddenTalents = ["Drawing", "Acting", "Music", "Puzzles", "Athletics", "Cooking"];
+const loveLanguages = ["Gifts", "Touch", "Words", "Time", "Acts of Service", "Attention"];
+const personalityTypes = ["Introvert", "Extrovert", "Ambivert", "Logical", "Emotional", "Intuitive"];
+const toxicTraits = ["Main Character Energy", "Phone Addiction", "Overthinking Texts", "TikTok-ing Instead of Sleeping", "Online Shopping Therapy", "Cancel Plans Last Minute"];
 
 // Personality types with descriptions
 const personalities = [
@@ -81,12 +81,37 @@ const personalities = [
   }
 ];
 
+// Hair colors for each personality
+const personalityHairColors = {
+  // Dark Blonde personalities
+  "Powerhouse": "Dark Blonde",
+  "Rule Breaker": "Dark Blonde",
+  "Game Changer": "Dark Blonde",
+  "Firecracker": "Dark Blonde",
+  "Party Animal": "Dark Blonde",
+  
+  // Golden Blonde personalities
+  "Brainiac Baddie": "Golden Blonde",
+  "Savage Thinker": "Golden Blonde",
+  "Mastermind": "Golden Blonde",
+  "Boss Lady": "Golden Blonde",
+  "Visionary Vixen": "Golden Blonde",
+  
+  // Light Brown personalities
+  "Chill Queen": "Light Brown",
+  "Charmer Extraordinaire": "Light Brown",
+  "Rock Solid Bae": "Light Brown",
+  "Watchdog": "Light Brown",
+  "Socialite": "Light Brown",
+  "Globetrotter": "Light Brown"
+};
+
 // Store current trait values
 let currentTraits = {
-  hairColor: null,
-  beverage: null,
-  vacationSpot: null,
-  hobby: null
+  hiddenTalent: null,
+  loveLanguage: null,
+  personalityType: null,
+  toxicTrait: null
 };
 
 // Store points for each personality
@@ -101,10 +126,10 @@ function getRandomItem(array) {
 }
 
 function generateRandomTraits() {
-  currentTraits.hairColor = getRandomItem(hairColors);
-  currentTraits.beverage = getRandomItem(beverages);
-  currentTraits.vacationSpot = getRandomItem(vacationSpots);
-  currentTraits.hobby = getRandomItem(hobbies);
+  currentTraits.hiddenTalent = getRandomItem(hiddenTalents);
+  currentTraits.loveLanguage = getRandomItem(loveLanguages);
+  currentTraits.personalityType = getRandomItem(personalityTypes);
+  currentTraits.toxicTrait = getRandomItem(toxicTraits);
   
   // Reset points
   personalityPoints = Array(16).fill(0);
@@ -115,77 +140,109 @@ function generateRandomTraits() {
 
 ```javascript
 function calculatePersonalityPoints() {
-  // Hair color logic
-  if (currentTraits.hairColor === "Blonde") {
-    personalityPoints[0] += 2; // Powerhouse
-    personalityPoints[6] += 1; // Charmer Extraordinaire
-    personalityPoints[14] += 2; // Game Changer
-  } else if (currentTraits.hairColor === "Dirty Blonde") {
-    personalityPoints[2] += 2; // Rule Breaker
+  // Hidden Talent logic
+  if (currentTraits.hiddenTalent === "Drawing" || currentTraits.hiddenTalent === "Music") {
+    personalityPoints[4] += 3; // Visionary Vixen
+    personalityPoints[5] += 2; // Chill Queen
+  } else if (currentTraits.hiddenTalent === "Acting" || currentTraits.hiddenTalent === "Athletics") {
+    personalityPoints[0] += 3; // Powerhouse
     personalityPoints[7] += 2; // Firecracker
-    personalityPoints[15] += 1; // Party Animal
-  } else if (currentTraits.hairColor === "Brunette") {
-    personalityPoints[1] += 2; // Brainiac Baddie
-    personalityPoints[3] += 1; // Savage Thinker
+  } else if (currentTraits.hiddenTalent === "Puzzles") {
+    personalityPoints[1] += 3; // Brainiac Baddie
     personalityPoints[12] += 2; // Mastermind
-  }
-  
-  // Beverage logic
-  if (currentTraits.beverage === "Energy Drink" || currentTraits.beverage === "Soda") {
-    personalityPoints[7] += 2; // Firecracker
-    personalityPoints[15] += 2; // Party Animal
-    personalityPoints[2] += 1; // Rule Breaker
-  } else if (currentTraits.beverage === "Coffee" || currentTraits.beverage === "Juice") {
-    personalityPoints[0] += 1; // Powerhouse
-    personalityPoints[10] += 2; // Boss Lady
-    personalityPoints[4] += 2; // Visionary Vixen
-  } else if (currentTraits.beverage === "Tea" || currentTraits.beverage === "Water") {
-    personalityPoints[5] += 2; // Chill Queen
-    personalityPoints[3] += 2; // Savage Thinker
-    personalityPoints[1] += 1; // Brainiac Baddie
-  }
-  
-  // Vacation spot logic
-  if (currentTraits.vacationSpot === "Beach" || currentTraits.vacationSpot === "City") {
-    personalityPoints[11] += 2; // Socialite
-    personalityPoints[6] += 2; // Charmer Extraordinaire
-    personalityPoints[15] += 1; // Party Animal
-  } else if (currentTraits.vacationSpot === "Countryside" || currentTraits.vacationSpot === "Forest") {
-    personalityPoints[5] += 2; // Chill Queen
+  } else if (currentTraits.hiddenTalent === "Cooking") {
+    personalityPoints[6] += 3; // Charmer Extraordinaire
     personalityPoints[8] += 2; // Rock Solid Bae
-    personalityPoints[9] += 1; // Watchdog
-  } else if (currentTraits.vacationSpot === "Mountains" || currentTraits.vacationSpot === "Desert") {
-    personalityPoints[13] += 2; // Globetrotter
-    personalityPoints[4] += 1; // Visionary Vixen
-    personalityPoints[14] += 2; // Game Changer
   }
   
-  // Hobby logic
-  if (currentTraits.hobby === "Sports" || currentTraits.hobby === "Gaming") {
-    personalityPoints[2] += 2; // Rule Breaker
-    personalityPoints[10] += 1; // Boss Lady
-    personalityPoints[14] += 2; // Game Changer
-  } else if (currentTraits.hobby === "Music" || currentTraits.hobby === "Art") {
-    personalityPoints[4] += 2; // Visionary Vixen
+  // Love Language logic
+  if (currentTraits.loveLanguage === "Gifts" || currentTraits.loveLanguage === "Attention") {
+    personalityPoints[15] += 3; // Party Animal
+    personalityPoints[11] += 2; // Socialite
+  } else if (currentTraits.loveLanguage === "Touch" || currentTraits.loveLanguage === "Words") {
+    personalityPoints[6] += 3; // Charmer Extraordinaire
+    personalityPoints[7] += 2; // Firecracker
+  } else if (currentTraits.loveLanguage === "Time") {
+    personalityPoints[8] += 3; // Rock Solid Bae
+    personalityPoints[9] += 2; // Watchdog
+  } else if (currentTraits.loveLanguage === "Acts of Service") {
+    personalityPoints[10] += 3; // Boss Lady
     personalityPoints[12] += 2; // Mastermind
+  }
+  
+  // Personality Type logic
+  if (currentTraits.personalityType === "Extrovert") {
+    personalityPoints[15] += 3; // Party Animal
+    personalityPoints[11] += 2; // Socialite
     personalityPoints[7] += 1; // Firecracker
-  } else if (currentTraits.hobby === "Reading" || currentTraits.hobby === "Cooking") {
-    personalityPoints[1] += 2; // Brainiac Baddie
+  } else if (currentTraits.personalityType === "Introvert") {
+    personalityPoints[5] += 3; // Chill Queen
+    personalityPoints[9] += 2; // Watchdog
+    personalityPoints[12] += 1; // Mastermind
+  } else if (currentTraits.personalityType === "Ambivert") {
+    personalityPoints[14] += 3; // Game Changer
+    personalityPoints[8] += 2; // Rock Solid Bae
+  } else if (currentTraits.personalityType === "Logical") {
+    personalityPoints[1] += 3; // Brainiac Baddie
     personalityPoints[3] += 2; // Savage Thinker
-    personalityPoints[9] += 1; // Watchdog
+  } else if (currentTraits.personalityType === "Emotional") {
+    personalityPoints[6] += 3; // Charmer Extraordinaire
+    personalityPoints[7] += 2; // Firecracker
+  } else if (currentTraits.personalityType === "Intuitive") {
+    personalityPoints[4] += 3; // Visionary Vixen
+    personalityPoints[2] += 2; // Rule Breaker
+  }
+  
+  // Toxic Trait logic
+  if (currentTraits.toxicTrait === "Main Character Energy") {
+    personalityPoints[0] += 3; // Powerhouse
+    personalityPoints[15] += 2; // Party Animal
+  } else if (currentTraits.toxicTrait === "Phone Addiction") {
+    personalityPoints[11] += 3; // Socialite
+    personalityPoints[12] += 1; // Mastermind
+  } else if (currentTraits.toxicTrait === "Overthinking Texts") {
+    personalityPoints[1] += 2; // Brainiac Baddie
+    personalityPoints[5] += 1; // Chill Queen
+  } else if (currentTraits.toxicTrait === "TikTok-ing Instead of Sleeping") {
+    personalityPoints[7] += 3; // Firecracker
+    personalityPoints[14] += 2; // Game Changer
+  } else if (currentTraits.toxicTrait === "Online Shopping Therapy") {
+    personalityPoints[4] += 2; // Visionary Vixen
+    personalityPoints[10] += 2; // Boss Lady
+  } else if (currentTraits.toxicTrait === "Cancel Plans Last Minute") {
+    personalityPoints[3] += 2; // Savage Thinker
+    personalityPoints[2] += 3; // Rule Breaker
   }
 }
 ```
 
-## Step 4: Determine Final Personality
+## Step 4: Determine Final Personality and Hair Color
 
 ```javascript
 function getPersonalityResult() {
   // Find index of personality with highest points
   let maxPoints = Math.max(...personalityPoints);
-  let personalityIndex = personalityPoints.indexOf(maxPoints);
+  let maxIndices = [];
   
-  return personalities[personalityIndex];
+  // Get all personalities with the max points (in case of a tie)
+  personalityPoints.forEach((points, index) => {
+    if (points === maxPoints) {
+      maxIndices.push(index);
+    }
+  });
+  
+  // Choose randomly in case of a tie
+  const personalityIndex = maxIndices[Math.floor(Math.random() * maxIndices.length)];
+  const personality = personalities[personalityIndex];
+  
+  // Get the hair color associated with this personality
+  const hairColor = personalityHairColors[personality.type];
+  
+  return {
+    personality: personality.type,
+    description: personality.description,
+    hairColor: hairColor
+  };
 }
 ```
 
@@ -206,19 +263,27 @@ function runPersonalityFilter() {
   // Step 4: Display results on screen
   displayResults(currentTraits, result);
 }
+
+function displayResults(traits, result) {
+  // Display the traits selected
+  showTraitSelection(traits);
+  
+  // Show the final result in the format: "You are a [Hair Color] [Personality Type]"
+  showPersonalityResult(result.hairColor, result.personality, result.description);
+}
 ```
 
 ## Step 6: Visual Implementation in Effect House
 
 1. Create text elements to display:
-   - The trait values (hair color, beverage, vacation spot, hobby)
-   - The personality type name
+   - The trait values (hidden talent, love language, personality type, toxic trait)
+   - The final result in the format: "You are a [Hair Color] [Personality Type]"
    - The personality description
 
 2. Create visual effects for each step:
    - Animation for the random trait selection
    - Transition effects between traits
-   - Highlight effect for the final personality result
+   - A reveal effect for the final personality and hair color result
 
 3. Set up sequencing:
    - Show traits one by one with a small delay between each
@@ -234,5 +299,6 @@ function runPersonalityFilter() {
 - Consider using **3D Text** for more visual impact
 - Add **Sound Effects** for each trait reveal
 - Create unique visuals or stickers for each of the 16 personality types
+- Include hair color visuals or overlays that match the three hair colors
 
 This implementation focuses on optimizing for TikTok Effect House's capabilities while preserving the personality prediction logic from the web version. 

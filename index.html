@@ -367,14 +367,14 @@
         
         <div class="trait-selector">
             <div class="circles-container">
-                <div class="circle" data-category="sign">
-                    <div class="circle-icon">♈</div>
-                    <div class="circle-title">Your Sign</div>
+                <div class="circle" data-category="talent">
+                    <div class="circle-icon">🎨</div>
+                    <div class="circle-title">Hidden Talent</div>
                     <div class="circle-value">Click to spin</div>
                 </div>
-                <div class="circle" data-category="job">
-                    <div class="circle-icon">💼</div>
-                    <div class="circle-title">Your Job</div>
+                <div class="circle" data-category="love">
+                    <div class="circle-icon">❤️</div>
+                    <div class="circle-title">Love Language</div>
                     <div class="circle-value">Click to spin</div>
                 </div>
                 <div class="circle" data-category="type">
@@ -384,7 +384,7 @@
                 </div>
                 <div class="circle" data-category="toxic">
                     <div class="circle-icon">😅</div>
-                    <div class="circle-title">Your Toxic Trait</div>
+                    <div class="circle-title">Toxic Trait</div>
                     <div class="circle-value">Click to spin</div>
                 </div>
             </div>
@@ -432,27 +432,21 @@
     <script>
         // Trait options for each category
         const categories = {
-            sign: [
-                { icon: "♈", label: "Aries" },
-                { icon: "♉", label: "Taurus" },
-                { icon: "♊", label: "Gemini" },
-                { icon: "♋", label: "Cancer" },
-                { icon: "♌", label: "Leo" },
-                { icon: "♍", label: "Virgo" },
-                { icon: "♎", label: "Libra" },
-                { icon: "♏", label: "Scorpio" },
-                { icon: "♐", label: "Sagittarius" },
-                { icon: "♑", label: "Capricorn" },
-                { icon: "♒", label: "Aquarius" },
-                { icon: "♓", label: "Pisces" }
+            talent: [
+                { icon: "🎨", label: "Drawing" },
+                { icon: "🎭", label: "Acting" },
+                { icon: "🎸", label: "Music" },
+                { icon: "🧩", label: "Puzzles" },
+                { icon: "🏃‍♀️", label: "Athletics" },
+                { icon: "👩‍🍳", label: "Cooking" }
             ],
-            job: [
-                { icon: "🎨", label: "Creative" },
-                { icon: "💼", label: "Corporate" },
-                { icon: "🩺", label: "Medical" },
-                { icon: "📚", label: "Educator" },
-                { icon: "💻", label: "Tech" },
-                { icon: "🛎️", label: "Service" }
+            love: [
+                { icon: "🎁", label: "Gifts" },
+                { icon: "👐", label: "Touch" },
+                { icon: "🗣️", label: "Words" },
+                { icon: "⏰", label: "Time" },
+                { icon: "🧹", label: "Acts of Service" },
+                { icon: "👀", label: "Attention" }
             ],
             type: [
                 { icon: "🧠", label: "Introvert" },
@@ -549,26 +543,26 @@
         // Personalities with their corresponding hair colors
         const personalityHairColors = {
             // Salted Caramelo personalities
-            "Powerhouse": "Salted Caramelo",
-            "Rule Breaker": "Salted Caramelo",
-            "Game Changer": "Salted Caramelo",
-            "Firecracker": "Salted Caramelo",
-            "Party Animal": "Salted Caramelo",
+            "Powerhouse": "Dark Blonde",
+            "Rule Breaker": "Dark Blonde",
+            "Game Changer": "Dark Blonde",
+            "Firecracker": "Dark Blonde",
+            "Party Animal": "Dark Blonde",
             
             // Tres Leches personalities
-            "Brainiac Baddie": "Tres Leches",
-            "Savage Thinker": "Tres Leches",
-            "Mastermind": "Tres Leches",
-            "Boss Lady": "Tres Leches",
-            "Visionary Vixen": "Tres Leches",
+            "Brainiac Baddie": "Golden Blonde",
+            "Savage Thinker": "Golden Blonde",
+            "Mastermind": "Golden Blonde",
+            "Boss Lady": "Golden Blonde",
+            "Visionary Vixen": "Golden Blonde",
             
             // Coconut Flan personalities
-            "Chill Queen": "Coconut Flan",
-            "Charmer Extraordinaire": "Coconut Flan",
-            "Rock Solid Bae": "Coconut Flan",
-            "Watchdog": "Coconut Flan",
-            "Socialite": "Coconut Flan",
-            "Globetrotter": "Coconut Flan"
+            "Chill Queen": "Light Brown",
+            "Charmer Extraordinaire": "Light Brown",
+            "Rock Solid Bae": "Light Brown",
+            "Watchdog": "Light Brown",
+            "Socialite": "Light Brown",
+            "Globetrotter": "Light Brown"
         };
         
         // DOM elements
@@ -584,8 +578,8 @@
         
         // Selected traits
         let selectedTraits = {
-            sign: null,
-            job: null,
+            talent: null,
+            love: null,
             type: null,
             toxic: null
         };
@@ -665,42 +659,36 @@
                 "Globetrotter": 0
             };
             
-            // Sign points
-            const sign = selectedTraits.sign.label;
-            if (["Aries", "Leo", "Sagittarius"].includes(sign)) { // Fire signs
+            // Hidden Talent points
+            const talent = selectedTraits.talent.label;
+            if (talent === "Drawing" || talent === "Music") {
+                points["Visionary Vixen"] += 3;
+                points["Chill Queen"] += 2;
+            } else if (talent === "Acting" || talent === "Athletics") {
                 points["Powerhouse"] += 3;
-                points["Rule Breaker"] += 2;
-            } else if (["Gemini", "Libra", "Aquarius"].includes(sign)) { // Air signs
+                points["Firecracker"] += 2;
+            } else if (talent === "Puzzles") {
                 points["Brainiac Baddie"] += 3;
-                points["Savage Thinker"] += 2;
-            } else if (["Taurus", "Virgo", "Capricorn"].includes(sign)) { // Earth signs
-                points["Chill Queen"] += 3;
-                points["Watchdog"] += 2;
-            } else { // Water signs (Cancer, Scorpio, Pisces)
+                points["Mastermind"] += 2;
+            } else if (talent === "Cooking") {
                 points["Charmer Extraordinaire"] += 3;
                 points["Rock Solid Bae"] += 2;
             }
             
-            // Job points
-            const job = selectedTraits.job.label;
-            if (job === "Creative") {
-                points["Game Changer"] += 3;
-                points["Visionary Vixen"] += 2;
-            } else if (job === "Corporate") {
-                points["Boss Lady"] += 3;
-                points["Mastermind"] += 2;
-            } else if (job === "Medical") {
+            // Love Language points
+            const love = selectedTraits.love.label;
+            if (love === "Gifts" || love === "Attention") {
+                points["Party Animal"] += 3;
+                points["Socialite"] += 2;
+            } else if (love === "Touch" || love === "Words") {
+                points["Charmer Extraordinaire"] += 3;
+                points["Firecracker"] += 2;
+            } else if (love === "Time") {
                 points["Rock Solid Bae"] += 3;
                 points["Watchdog"] += 2;
-            } else if (job === "Educator") {
-                points["Chill Queen"] += 3;
-                points["Brainiac Baddie"] += 2;
-            } else if (job === "Tech") {
-                points["Mastermind"] += 3;
-                points["Savage Thinker"] += 2;
-            } else if (job === "Service") {
-                points["Socialite"] += 3;
-                points["Charmer Extraordinaire"] += 2;
+            } else if (love === "Acts of Service") {
+                points["Boss Lady"] += 3;
+                points["Mastermind"] += 2;
             }
             
             // Type points
@@ -746,7 +734,7 @@
                 points["Boss Lady"] += 2;
             } else if (toxic === "Cancel Plans Last Minute") {
                 points["Savage Thinker"] += 2;
-                points["Rock Solid Bae"] += 1;
+                points["Rule Breaker"] += 3;
             }
             
             return points;
@@ -787,7 +775,8 @@
             hairColorBadge.className = 'hair-color-result';
             hairColorBadge.classList.add(hairColor.toLowerCase().replace(/\s+/g, '-'));
             
-            personalityResult.textContent = `You are a ${hairColor} type of ${personality}`;
+            const hairColorName = personalityHairColors[personality];
+            personalityResult.textContent = `You are a ${hairColorName} ${personality}`;
             
             // Find the personality's description
             let personalityDescription = "";
@@ -838,8 +827,8 @@
         function resetPredictor() {
             // Clear selected traits
             selectedTraits = {
-                sign: null,
-                job: null,
+                talent: null,
+                love: null,
                 type: null,
                 toxic: null
             };
@@ -848,8 +837,8 @@
             circles.forEach(circle => {
                 const category = circle.dataset.category;
                 circle.querySelector('.circle-icon').textContent = 
-                    category === 'sign' ? '♈' : 
-                    category === 'job' ? '💼' : 
+                    category === 'talent' ? '🎨' : 
+                    category === 'love' ? '❤️' : 
                     category === 'type' ? '🧠' : '😅';
                 circle.querySelector('.circle-value').textContent = 'Click to spin';
             });
