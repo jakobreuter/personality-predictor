@@ -8,8 +8,8 @@ This guide shows how to implement the personality predictor in TikTok Effect Hou
 
 ```javascript
 // Define arrays for trait options
-const hiddenTalents = ["Drawing", "Acting", "Music", "Puzzles", "Athletics", "Cooking"];
-const loveLanguages = ["Gifts", "Touch", "Words", "Time", "Acts of Service", "Attention"];
+const hiddenTalents = ["Fast Learning", "Conflict Defusing", "Empath", "Remembering Names", "Reading the Room"];
+const loveLanguages = ["Receiving Gifts", "Physical Touch", "Words of Affirmation", "Quality Time", "Acts of Service", "Undivided Attention"];
 const personalityTypes = ["Introvert", "Extrovert", "Ambivert", "Logical", "Emotional", "Intuitive"];
 const toxicTraits = ["Main Character Energy", "Phone Addiction", "Overthinking Texts", "TikTok-ing Instead of Sleeping", "Online Shopping Therapy", "Cancel Plans Last Minute"];
 
@@ -141,28 +141,25 @@ function generateRandomTraits() {
 ```javascript
 function calculatePersonalityPoints() {
   // Hidden Talent logic
-  if (currentTraits.hiddenTalent === "Drawing" || currentTraits.hiddenTalent === "Music") {
+  if (currentTraits.hiddenTalent === "Reading the Room" || currentTraits.hiddenTalent === "Empath") {
     personalityPoints[4] += 3; // Visionary Vixen
     personalityPoints[5] += 2; // Chill Queen
-  } else if (currentTraits.hiddenTalent === "Acting" || currentTraits.hiddenTalent === "Athletics") {
-    personalityPoints[0] += 3; // Powerhouse
-    personalityPoints[7] += 2; // Firecracker
-  } else if (currentTraits.hiddenTalent === "Puzzles") {
+  } else if (currentTraits.hiddenTalent === "Fast Learning" || currentTraits.hiddenTalent === "Remembering Names") {
     personalityPoints[1] += 3; // Brainiac Baddie
     personalityPoints[12] += 2; // Mastermind
-  } else if (currentTraits.hiddenTalent === "Cooking") {
-    personalityPoints[6] += 3; // Charmer Extraordinaire
-    personalityPoints[8] += 2; // Rock Solid Bae
+  } else if (currentTraits.hiddenTalent === "Conflict Defusing") {
+    personalityPoints[8] += 3; // Rock Solid Bae
+    personalityPoints[6] += 2; // Charmer Extraordinaire
   }
   
   // Love Language logic
-  if (currentTraits.loveLanguage === "Gifts" || currentTraits.loveLanguage === "Attention") {
+  if (currentTraits.loveLanguage === "Receiving Gifts" || currentTraits.loveLanguage === "Undivided Attention") {
     personalityPoints[15] += 3; // Party Animal
     personalityPoints[11] += 2; // Socialite
-  } else if (currentTraits.loveLanguage === "Touch" || currentTraits.loveLanguage === "Words") {
+  } else if (currentTraits.loveLanguage === "Physical Touch" || currentTraits.loveLanguage === "Words of Affirmation") {
     personalityPoints[6] += 3; // Charmer Extraordinaire
     personalityPoints[7] += 2; // Firecracker
-  } else if (currentTraits.loveLanguage === "Time") {
+  } else if (currentTraits.loveLanguage === "Quality Time") {
     personalityPoints[8] += 3; // Rock Solid Bae
     personalityPoints[9] += 2; // Watchdog
   } else if (currentTraits.loveLanguage === "Acts of Service") {

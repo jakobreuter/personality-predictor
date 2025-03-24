@@ -368,13 +368,13 @@
         <div class="trait-selector">
             <div class="circles-container">
                 <div class="circle" data-category="talent">
-                    <div class="circle-icon">🎨</div>
-                    <div class="circle-title">Hidden Talent</div>
+                    <div class="circle-icon">🧠</div>
+                    <div class="circle-title">Fast Learning</div>
                     <div class="circle-value">Click to spin</div>
                 </div>
                 <div class="circle" data-category="love">
-                    <div class="circle-icon">❤️</div>
-                    <div class="circle-title">Love Language</div>
+                    <div class="circle-icon">🎁</div>
+                    <div class="circle-title">Receiving Gifts</div>
                     <div class="circle-value">Click to spin</div>
                 </div>
                 <div class="circle" data-category="type">
@@ -433,20 +433,19 @@
         // Trait options for each category
         const categories = {
             talent: [
-                { icon: "🎨", label: "Drawing" },
-                { icon: "🎭", label: "Acting" },
-                { icon: "🎸", label: "Music" },
-                { icon: "🧩", label: "Puzzles" },
-                { icon: "🏃‍♀️", label: "Athletics" },
-                { icon: "👩‍🍳", label: "Cooking" }
+                { icon: "🧠", label: "Fast Learning" },
+                { icon: "��", label: "Conflict Defusing" },
+                { icon: "💫", label: "Empath" },
+                { icon: "👋", label: "Remembering Names" },
+                { icon: "👀", label: "Reading the Room" }
             ],
             love: [
-                { icon: "🎁", label: "Gifts" },
-                { icon: "👐", label: "Touch" },
-                { icon: "🗣️", label: "Words" },
-                { icon: "⏰", label: "Time" },
+                { icon: "🎁", label: "Receiving Gifts" },
+                { icon: "👐", label: "Physical Touch" },
+                { icon: "🗣️", label: "Words of Affirmation" },
+                { icon: "⏰", label: "Quality Time" },
                 { icon: "🧹", label: "Acts of Service" },
-                { icon: "👀", label: "Attention" }
+                { icon: "👀", label: "Undivided Attention" }
             ],
             type: [
                 { icon: "🧠", label: "Introvert" },
@@ -661,29 +660,26 @@
             
             // Hidden Talent points
             const talent = selectedTraits.talent.label;
-            if (talent === "Drawing" || talent === "Music") {
+            if (talent === "Reading the Room" || talent === "Empath") {
                 points["Visionary Vixen"] += 3;
                 points["Chill Queen"] += 2;
-            } else if (talent === "Acting" || talent === "Athletics") {
-                points["Powerhouse"] += 3;
-                points["Firecracker"] += 2;
-            } else if (talent === "Puzzles") {
+            } else if (talent === "Fast Learning" || talent === "Remembering Names") {
                 points["Brainiac Baddie"] += 3;
                 points["Mastermind"] += 2;
-            } else if (talent === "Cooking") {
-                points["Charmer Extraordinaire"] += 3;
-                points["Rock Solid Bae"] += 2;
+            } else if (talent === "Conflict Defusing") {
+                points["Rock Solid Bae"] += 3;
+                points["Charmer Extraordinaire"] += 2;
             }
             
             // Love Language points
             const love = selectedTraits.love.label;
-            if (love === "Gifts" || love === "Attention") {
+            if (love === "Receiving Gifts" || love === "Undivided Attention") {
                 points["Party Animal"] += 3;
                 points["Socialite"] += 2;
-            } else if (love === "Touch" || love === "Words") {
+            } else if (love === "Physical Touch" || love === "Words of Affirmation") {
                 points["Charmer Extraordinaire"] += 3;
                 points["Firecracker"] += 2;
-            } else if (love === "Time") {
+            } else if (love === "Quality Time") {
                 points["Rock Solid Bae"] += 3;
                 points["Watchdog"] += 2;
             } else if (love === "Acts of Service") {
@@ -837,8 +833,8 @@
             circles.forEach(circle => {
                 const category = circle.dataset.category;
                 circle.querySelector('.circle-icon').textContent = 
-                    category === 'talent' ? '🎨' : 
-                    category === 'love' ? '❤️' : 
+                    category === 'talent' ? '🧠' : 
+                    category === 'love' ? '🎁' : 
                     category === 'type' ? '🧠' : '😅';
                 circle.querySelector('.circle-value').textContent = 'Click to spin';
             });
