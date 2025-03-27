@@ -690,147 +690,188 @@
                 "Socialite": 0,
                 "Globetrotter": 0
             };
+
+            // TRAITS THAT DEFINE A LEADER
             
-            // Hidden Talent points
+            // Hidden Talent points - Leadership Skills
             const talent = selectedTraits.talent.label;
-            // Power skills
-            if (talent === "Giving great advice" || talent === "Smooth under pressure" || talent === "Elite parallel parking") {
+            if (talent === "Smooth under pressure" || talent === "Never late") {
+                points["Boss Lady"] += 3;
+                points["Powerhouse"] += 2;
+            } 
+            else if (talent === "Giving great advice" || talent === "Elite parallel parking") {
                 points["Powerhouse"] += 3;
-                points["Boss Lady"] += 2;
-            } 
-            // Smart skills
-            else if (talent === "Amazing memory for drama" || talent === "Spotting red flags instantly") {
-                points["Brainiac Baddie"] += 3;
-                points["Savage Thinker"] += 2;
-            } 
-            // Creative skills
-            else if (talent === "Finding the best lighting" || talent === "Memorizing song lyrics") {
-                points["Visionary Vixen"] += 3;
-                points["Game Changer"] += 2;
+                points["Mastermind"] += 2;
             }
-            // Physical skills
-            else if (talent === "Groceries in 1-trip" || talent === "Making perfect microwave popcorn") {
-                points["Rock Solid Bae"] += 3;
-                points["Watchdog"] += 2;
+            // Type points - Leadership Traits
+            const type = selectedTraits.type.label;
+            if (type === "Works in finance") {
+                points["Boss Lady"] += 3;
+                points["Powerhouse"] += 2;
             }
-            // Social skills
-            else if (talent === "Texting back immediately" || talent === "Irish exiting" || talent === "Mouth-tying cherry stems") {
-                points["Socialite"] += 3;
-                points["Charmer Extraordinaire"] += 2;
-                points["Party Animal"] += 1;
+            else if (type === "Lives at the gym" || type === "Athlete" || type === "Tallest in the room") {
+                points["Powerhouse"] += 3;
+                points["Rock Solid Bae"] += 2;
             }
-            // Relaxed skills
-            else if (talent === "Ability to sleep anywhere" || talent === "Marathon napper" || talent === "Always unbothered") {
-                points["Chill Queen"] += 3;
-                points["Globetrotter"] += 2;
-            }
-            else if (talent === "Never late") {
+            // Toxic trait - Leadership Flaws
+            const toxic = selectedTraits.toxic.label;
+            if (toxic === "Overpacks for everything") {
                 points["Boss Lady"] += 3;
                 points["Mastermind"] += 2;
             }
             
-            // Love Language points
-            const love = selectedTraits.love.label;
-            if (love === "Words of affirmation") {
-                points["Charmer Extraordinaire"] += 3;
-                points["Party Animal"] += 2;
-            } 
-            else if (love === "Receiving gifts") {
-                points["Socialite"] += 3;
-                points["Globetrotter"] += 2;
-            } 
-            else if (love === "Physical touch") {
-                points["Firecracker"] += 3;
-                points["Rule Breaker"] += 2;
-            } 
-            else if (love === "Acts of service") {
-                points["Watchdog"] += 3;
-                points["Rock Solid Bae"] += 2;
-            }
-            else if (love === "Quality time") {
-                points["Chill Queen"] += 3;
-                points["Boss Lady"] += 2;
-            }
+            // TRAITS THAT DEFINE INTELLIGENCE
             
-            // Type points
-            const type = selectedTraits.type.label;
-            // Academic/intellectual types
+            // Hidden Talent - Intellectual Skills
+            if (talent === "Amazing memory for drama" || talent === "Spotting red flags instantly") {
+                points["Brainiac Baddie"] += 3;
+                points["Savage Thinker"] += 2;
+            }
+            // Type - Intelligence Traits
             if (type === "Lives at the library" || type === "Film Buff") {
                 points["Brainiac Baddie"] += 3;
                 points["Savage Thinker"] += 2;
                 points["Mastermind"] += 1;
-            } 
-            // Athletic types
-            else if (type === "Lives at the gym" || type === "Athlete" || type === "Tallest in the room") {
-                points["Powerhouse"] += 3;
-                points["Rock Solid Bae"] += 2;
-            } 
-            // Tech/gaming types
-            else if (type === "Gamer") {
+            }
+            if (type === "Gamer") {
                 points["Mastermind"] += 3;
                 points["Game Changer"] += 2;
             }
-            // Appearance/style types
-            else if (type === "Lives in Crocs" || type === "Fashionista" || type === "Preppy") {
+            // Toxic trait - Intellectual Challenges
+            if (toxic === "Keeps 87 tabs open") {
+                points["Mastermind"] += 3;
+                points["Brainiac Baddie"] += 2;
+            }
+            if (toxic === "Can never pick where to eat" || toxic === "Asks for advice, but never follows it") {
+                points["Savage Thinker"] += 3;
+                points["Brainiac Baddie"] += 2;
+            }
+            
+            // TRAITS THAT DEFINE CREATIVITY & INNOVATION
+            
+            // Hidden Talent - Creative Skills
+            if (talent === "Finding the best lighting" || talent === "Memorizing song lyrics") {
+                points["Visionary Vixen"] += 3;
+                points["Game Changer"] += 2;
+            }
+            // Type - Creative Traits 
+            if (type === "Fashionista" || type === "Preppy") {
                 points["Visionary Vixen"] += 3;
                 points["Socialite"] += 2;
             }
-            // Dating preference types
-            else if (type === "Emotionally unavailable" || type === "Blondes" || type === "Brunettes" || type === "Shorties") {
+            // Toxic trait - Creative Quirks
+            if (toxic === "Drinks coffee at midnight" || toxic === "Thinks horoscopes explain everything") {
+                points["Game Changer"] += 3;
+                points["Visionary Vixen"] += 2;
+            }
+            
+            // TRAITS THAT DEFINE SOCIAL BUTTERFLY
+            
+            // Hidden Talent - Social Skills
+            if (talent === "Texting back immediately" || talent === "Mouth-tying cherry stems") {
+                points["Socialite"] += 3;
+                points["Charmer Extraordinaire"] += 2;
+            }
+            if (talent === "Irish exiting") {
+                points["Party Animal"] += 3;
+                points["Socialite"] += 2;
+            }
+            // Type - Social Traits
+            if (type === "Shameless yapper") {
+                points["Party Animal"] += 3;
+                points["Firecracker"] += 2;
+            }
+            if (type === "Lives in Crocs") {
+                points["Socialite"] += 3;
+                points["Party Animal"] += 2;
+            }
+            // Toxic trait - Social Issues
+            if (toxic === "Sleeps through all alarms" || toxic === "Always running 10 minutes late" || toxic === "Constantly \"on the way\"") {
+                points["Party Animal"] += 3;
+                points["Firecracker"] += 2;
+            }
+            if (toxic === "Flirts out of boredom") {
+                points["Charmer Extraordinaire"] += 3;
+                points["Socialite"] += 2;
+            }
+            
+            // TRAITS THAT DEFINE REBELS
+            
+            // Type - Rebellious Traits
+            if (type === "Emotionally unavailable" || type === "Blondes" || type === "Brunettes" || type === "Shorties") {
                 points["Firecracker"] += 3;
                 points["Rule Breaker"] += 2;
-                points["Party Animal"] += 1;
             }
-            // Personality types
-            else if (type === "Golden retriever" || type === "Hopeless romantic") {
+            // Toxic trait - Rebellious Behaviors
+            if (toxic === "Constantly cancels plans" || toxic === "Cancels plans last minute" || toxic === "Ghosting for fun") {
+                points["Rule Breaker"] += 3;
+                points["Firecracker"] += 2;
+            }
+            
+            // TRAITS THAT DEFINE RELIABILITY
+            
+            // Hidden Talent - Reliable Skills
+            if (talent === "Groceries in 1-trip" || talent === "Making perfect microwave popcorn") {
+                points["Rock Solid Bae"] += 3;
+                points["Watchdog"] += 2;
+            }
+            // Toxic trait - Emotional Issues
+            if (toxic === "Holds grudges forever" || toxic === "Over-apologizes") {
+                points["Watchdog"] += 3;
+                points["Rock Solid Bae"] += 2;
+            }
+            
+            // TRAITS THAT DEFINE CALMNESS
+            
+            // Hidden Talent - Relaxed Skills
+            if (talent === "Ability to sleep anywhere" || talent === "Marathon napper" || talent === "Always unbothered") {
+                points["Chill Queen"] += 3;
+                points["Globetrotter"] += 2;
+            }
+            // Type - Calm Traits
+            if (type === "Golden retriever" || type === "Hopeless romantic") {
                 points["Chill Queen"] += 3;
                 points["Charmer Extraordinaire"] += 2;
             }
-            else if (type === "Shameless yapper") {
-                points["Party Animal"] += 3;
-                points["Firecracker"] += 2;
-            }
-            else if (type === "Works in finance") {
-                points["Boss Lady"] += 3;
-                points["Watchdog"] += 2;
+            // Toxic trait - Avoidant Behaviors
+            if (toxic === "Avoids confrontation" || toxic === "Says \"it's fine\" (it's not)" || toxic === "Always on \"Do Not Disturb\"") {
+                points["Chill Queen"] += 3;
+                points["Globetrotter"] += 2;
             }
             
-            // Toxic trait points
-            const toxic = selectedTraits.toxic.label;
-            // Passive aggressive or avoidant traits
-            if (toxic === "Avoids confrontation" || toxic === "Says \"it's fine\" (it's not)" || toxic === "Always on \"Do Not Disturb\"") {
-                points["Chill Queen"] += 2;
-                points["Globetrotter"] += 2;
-            } 
-            // Time management issues
-            else if (toxic === "Sleeps through all alarms" || toxic === "Always running 10 minutes late" || toxic === "Constantly \"on the way\"") {
-                points["Party Animal"] += 3;
-                points["Firecracker"] += 2;
-            } 
-            // Social responsibility issues
-            else if (toxic === "Constantly cancels plans" || toxic === "Cancels plans last minute" || toxic === "Ghosting for fun") {
-                points["Rule Breaker"] += 3;
-                points["Savage Thinker"] += 2;
-            }
-            // Emotional or relationship issues
-            else if (toxic === "Holds grudges forever" || toxic === "Over-apologizes" || toxic === "Flirts out of boredom") {
+            // LOVE LANGUAGE POINTS - More Logically Distributed
+            
+            const love = selectedTraits.love.label;
+            
+            // Words of affirmation: Verbal expression - fits chatty, social personalities
+            if (love === "Words of affirmation") {
                 points["Charmer Extraordinaire"] += 3;
+                points["Firecracker"] += 2;
+                points["Savage Thinker"] += 1;
+            } 
+            // Receiving gifts: Material appreciation - fits social status personalities
+            else if (love === "Receiving gifts") {
+                points["Socialite"] += 3;
+                points["Globetrotter"] += 2;
+                points["Boss Lady"] += 1;
+            } 
+            // Physical touch: Passionate connection - fits energetic personalities
+            else if (love === "Physical touch") {
+                points["Party Animal"] += 3;
+                points["Rule Breaker"] += 2;
+                points["Firecracker"] += 1;
+            } 
+            // Acts of service: Practical help - fits dependable personalities
+            else if (love === "Acts of service") {
+                points["Rock Solid Bae"] += 3;
                 points["Watchdog"] += 2;
+                points["Boss Lady"] += 1;
             }
-            // Decision-making issues
-            else if (toxic === "Can never pick where to eat" || toxic === "Asks for advice, but never follows it") {
+            // Quality time: Full attention - fits thoughtful personalities
+            else if (love === "Quality time") {
+                points["Chill Queen"] += 3;
                 points["Visionary Vixen"] += 2;
-                points["Brainiac Baddie"] += 2;
-            }
-            // Organizational issues
-            else if (toxic === "Overpacks for everything" || toxic === "Keeps 87 tabs open") {
-                points["Mastermind"] += 3;
-                points["Boss Lady"] += 2;
-            }
-            // Distracting behaviors
-            else if (toxic === "Drinks coffee at midnight" || toxic === "Thinks horoscopes explain everything") {
-                points["Game Changer"] += 3;
-                points["Powerhouse"] += 2;
+                points["Mastermind"] += 1;
             }
             
             return points;
