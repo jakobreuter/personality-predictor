@@ -433,35 +433,68 @@
         // Trait options for each category
         const categories = {
             talent: [
-                { icon: "🧠", label: "Fast Learning" },
-                { icon: "��", label: "Conflict Defusing" },
-                { icon: "💫", label: "Empath" },
-                { icon: "👋", label: "Remembering Names" },
-                { icon: "👀", label: "Reading the Room" }
+                { icon: "🍿", label: "Making perfect microwave popcorn" },
+                { icon: "🛒", label: "Groceries in 1-trip" },
+                { icon: "🧠", label: "Amazing memory for drama" },
+                { icon: "📸", label: "Finding the best lighting" },
+                { icon: "😴", label: "Ability to sleep anywhere" },
+                { icon: "🚩", label: "Spotting red flags instantly" },
+                { icon: "📱", label: "Texting back immediately" },
+                { icon: "🧊", label: "Smooth under pressure" },
+                { icon: "🗣️", label: "Giving great advice" },
+                { icon: "🚗", label: "Elite parallel parking" },
+                { icon: "⏰", label: "Never late" },
+                { icon: "😌", label: "Always unbothered" },
+                { icon: "🎵", label: "Memorizing song lyrics" },
+                { icon: "😴", label: "Marathon napper" },
+                { icon: "🚪", label: "Irish exiting" },
+                { icon: "🍒", label: "Mouth-tying cherry stems" }
             ],
             love: [
-                { icon: "🎁", label: "Receiving Gifts" },
-                { icon: "👐", label: "Physical Touch" },
-                { icon: "🗣️", label: "Words of Affirmation" },
-                { icon: "⏰", label: "Quality Time" },
-                { icon: "🧹", label: "Acts of Service" },
-                { icon: "👀", label: "Undivided Attention" }
+                { icon: "💬", label: "Words of affirmation" },
+                { icon: "🎁", label: "Receiving gifts" },
+                { icon: "👐", label: "Physical touch" },
+                { icon: "🧹", label: "Acts of service" },
+                { icon: "⏰", label: "Quality time" }
             ],
             type: [
-                { icon: "🧠", label: "Introvert" },
-                { icon: "🗣️", label: "Extrovert" },
-                { icon: "⚖️", label: "Ambivert" },
-                { icon: "🧮", label: "Logical" },
-                { icon: "❤️", label: "Emotional" },
-                { icon: "✨", label: "Intuitive" }
+                { icon: "📏", label: "Tallest in the room" },
+                { icon: "📚", label: "Lives at the library" },
+                { icon: "💪", label: "Lives at the gym" },
+                { icon: "🏀", label: "Athlete" },
+                { icon: "🎮", label: "Gamer" },
+                { icon: "🎬", label: "Film Buff" },
+                { icon: "👟", label: "Lives in Crocs" },
+                { icon: "😒", label: "Emotionally unavailable" },
+                { icon: "🧍", label: "Shorties" },
+                { icon: "👱‍♀️", label: "Blondes" },
+                { icon: "🧔", label: "Brunettes" },
+                { icon: "🗣️", label: "Shameless yapper" },
+                { icon: "👗", label: "Fashionista" },
+                { icon: "🐕", label: "Golden retriever" },
+                { icon: "❤️", label: "Hopeless romantic" },
+                { icon: "💼", label: "Works in finance" },
+                { icon: "👔", label: "Preppy" }
             ],
             toxic: [
-                { icon: "👑", label: "Main Character Energy" },
-                { icon: "📱", label: "Phone Addiction" },
-                { icon: "💭", label: "Overthinking Texts" },
-                { icon: "🕺", label: "TikTok-ing Instead of Sleeping" },
-                { icon: "🛍️", label: "Online Shopping Therapy" },
-                { icon: "🙅‍♀️", label: "Cancel Plans Last Minute" }
+                { icon: "😤", label: "Holds grudges forever" },
+                { icon: "🙏", label: "Over-apologizes" },
+                { icon: "👻", label: "Ghosting for fun" },
+                { icon: "🙈", label: "Avoids confrontation" },
+                { icon: "📅", label: "Constantly cancels plans" },
+                { icon: "🔕", label: "Always on \"Do Not Disturb\"" },
+                { icon: "⏰", label: "Sleeps through all alarms" },
+                { icon: "🍽️", label: "Can never pick where to eat" },
+                { icon: "🙉", label: "Asks for advice, but never follows it" },
+                { icon: "🧳", label: "Overpacks for everything" },
+                { icon: "🏃", label: "Constantly \"on the way\"" },
+                { icon: "❌", label: "Cancels plans last minute" },
+                { icon: "🖥️", label: "Keeps 87 tabs open" },
+                { icon: "☕", label: "Drinks coffee at midnight" },
+                { icon: "⏱️", label: "Always running 10 minutes late" },
+                { icon: "♈", label: "Thinks horoscopes explain everything" },
+                { icon: "😑", label: "Says \"it's fine\" (it's not)" },
+                { icon: "😏", label: "Flirts out of boredom" }
             ]
         };
         
@@ -660,77 +693,144 @@
             
             // Hidden Talent points
             const talent = selectedTraits.talent.label;
-            if (talent === "Reading the Room" || talent === "Empath") {
-                points["Visionary Vixen"] += 3;
-                points["Chill Queen"] += 2;
-            } else if (talent === "Fast Learning" || talent === "Remembering Names") {
+            // Power skills
+            if (talent === "Giving great advice" || talent === "Smooth under pressure" || talent === "Elite parallel parking") {
+                points["Powerhouse"] += 3;
+                points["Boss Lady"] += 2;
+            } 
+            // Smart skills
+            else if (talent === "Amazing memory for drama" || talent === "Spotting red flags instantly") {
                 points["Brainiac Baddie"] += 3;
-                points["Mastermind"] += 2;
-            } else if (talent === "Conflict Defusing") {
-                points["Rock Solid Bae"] += 3;
-                points["Charmer Extraordinaire"] += 2;
+                points["Savage Thinker"] += 2;
+            } 
+            // Creative skills
+            else if (talent === "Finding the best lighting" || talent === "Memorizing song lyrics") {
+                points["Visionary Vixen"] += 3;
+                points["Game Changer"] += 2;
             }
-            
-            // Love Language points
-            const love = selectedTraits.love.label;
-            if (love === "Receiving Gifts" || love === "Undivided Attention") {
-                points["Party Animal"] += 3;
-                points["Socialite"] += 2;
-            } else if (love === "Physical Touch" || love === "Words of Affirmation") {
-                points["Charmer Extraordinaire"] += 3;
-                points["Firecracker"] += 2;
-            } else if (love === "Quality Time") {
+            // Physical skills
+            else if (talent === "Groceries in 1-trip" || talent === "Making perfect microwave popcorn") {
                 points["Rock Solid Bae"] += 3;
                 points["Watchdog"] += 2;
-            } else if (love === "Acts of Service") {
+            }
+            // Social skills
+            else if (talent === "Texting back immediately" || talent === "Irish exiting" || talent === "Mouth-tying cherry stems") {
+                points["Socialite"] += 3;
+                points["Charmer Extraordinaire"] += 2;
+                points["Party Animal"] += 1;
+            }
+            // Relaxed skills
+            else if (talent === "Ability to sleep anywhere" || talent === "Marathon napper" || talent === "Always unbothered") {
+                points["Chill Queen"] += 3;
+                points["Globetrotter"] += 2;
+            }
+            else if (talent === "Never late") {
                 points["Boss Lady"] += 3;
                 points["Mastermind"] += 2;
             }
             
+            // Love Language points
+            const love = selectedTraits.love.label;
+            if (love === "Words of affirmation") {
+                points["Charmer Extraordinaire"] += 3;
+                points["Party Animal"] += 2;
+            } 
+            else if (love === "Receiving gifts") {
+                points["Socialite"] += 3;
+                points["Globetrotter"] += 2;
+            } 
+            else if (love === "Physical touch") {
+                points["Firecracker"] += 3;
+                points["Rule Breaker"] += 2;
+            } 
+            else if (love === "Acts of service") {
+                points["Watchdog"] += 3;
+                points["Rock Solid Bae"] += 2;
+            }
+            else if (love === "Quality time") {
+                points["Chill Queen"] += 3;
+                points["Boss Lady"] += 2;
+            }
+            
             // Type points
             const type = selectedTraits.type.label;
-            if (type === "Extrovert") {
-                points["Party Animal"] += 3;
-                points["Socialite"] += 2;
-                points["Firecracker"] += 1;
-            } else if (type === "Introvert") {
-                points["Chill Queen"] += 3;
-                points["Watchdog"] += 2;
-                points["Mastermind"] += 1;
-            } else if (type === "Ambivert") {
-                points["Game Changer"] += 3;
-                points["Rock Solid Bae"] += 2;
-            } else if (type === "Logical") {
+            // Academic/intellectual types
+            if (type === "Lives at the library" || type === "Film Buff") {
                 points["Brainiac Baddie"] += 3;
                 points["Savage Thinker"] += 2;
-            } else if (type === "Emotional") {
-                points["Charmer Extraordinaire"] += 3;
-                points["Firecracker"] += 2;
-            } else if (type === "Intuitive") {
+                points["Mastermind"] += 1;
+            } 
+            // Athletic types
+            else if (type === "Lives at the gym" || type === "Athlete" || type === "Tallest in the room") {
+                points["Powerhouse"] += 3;
+                points["Rock Solid Bae"] += 2;
+            } 
+            // Tech/gaming types
+            else if (type === "Gamer") {
+                points["Mastermind"] += 3;
+                points["Game Changer"] += 2;
+            }
+            // Appearance/style types
+            else if (type === "Lives in Crocs" || type === "Fashionista" || type === "Preppy") {
                 points["Visionary Vixen"] += 3;
+                points["Socialite"] += 2;
+            }
+            // Dating preference types
+            else if (type === "Emotionally unavailable" || type === "Blondes" || type === "Brunettes" || type === "Shorties") {
+                points["Firecracker"] += 3;
                 points["Rule Breaker"] += 2;
+                points["Party Animal"] += 1;
+            }
+            // Personality types
+            else if (type === "Golden retriever" || type === "Hopeless romantic") {
+                points["Chill Queen"] += 3;
+                points["Charmer Extraordinaire"] += 2;
+            }
+            else if (type === "Shameless yapper") {
+                points["Party Animal"] += 3;
+                points["Firecracker"] += 2;
+            }
+            else if (type === "Works in finance") {
+                points["Boss Lady"] += 3;
+                points["Watchdog"] += 2;
             }
             
             // Toxic trait points
             const toxic = selectedTraits.toxic.label;
-            if (toxic === "Main Character Energy") {
-                points["Powerhouse"] += 3;
-                points["Party Animal"] += 2;
-            } else if (toxic === "Phone Addiction") {
-                points["Socialite"] += 3;
-                points["Mastermind"] += 1;
-            } else if (toxic === "Overthinking Texts") {
-                points["Brainiac Baddie"] += 2;
-                points["Chill Queen"] += 1;
-            } else if (toxic === "TikTok-ing Instead of Sleeping") {
-                points["Firecracker"] += 3;
-                points["Game Changer"] += 2;
-            } else if (toxic === "Online Shopping Therapy") {
-                points["Visionary Vixen"] += 2;
-                points["Boss Lady"] += 2;
-            } else if (toxic === "Cancel Plans Last Minute") {
-                points["Savage Thinker"] += 2;
+            // Passive aggressive or avoidant traits
+            if (toxic === "Avoids confrontation" || toxic === "Says \"it's fine\" (it's not)" || toxic === "Always on \"Do Not Disturb\"") {
+                points["Chill Queen"] += 2;
+                points["Globetrotter"] += 2;
+            } 
+            // Time management issues
+            else if (toxic === "Sleeps through all alarms" || toxic === "Always running 10 minutes late" || toxic === "Constantly \"on the way\"") {
+                points["Party Animal"] += 3;
+                points["Firecracker"] += 2;
+            } 
+            // Social responsibility issues
+            else if (toxic === "Constantly cancels plans" || toxic === "Cancels plans last minute" || toxic === "Ghosting for fun") {
                 points["Rule Breaker"] += 3;
+                points["Savage Thinker"] += 2;
+            }
+            // Emotional or relationship issues
+            else if (toxic === "Holds grudges forever" || toxic === "Over-apologizes" || toxic === "Flirts out of boredom") {
+                points["Charmer Extraordinaire"] += 3;
+                points["Watchdog"] += 2;
+            }
+            // Decision-making issues
+            else if (toxic === "Can never pick where to eat" || toxic === "Asks for advice, but never follows it") {
+                points["Visionary Vixen"] += 2;
+                points["Brainiac Baddie"] += 2;
+            }
+            // Organizational issues
+            else if (toxic === "Overpacks for everything" || toxic === "Keeps 87 tabs open") {
+                points["Mastermind"] += 3;
+                points["Boss Lady"] += 2;
+            }
+            // Distracting behaviors
+            else if (toxic === "Drinks coffee at midnight" || toxic === "Thinks horoscopes explain everything") {
+                points["Game Changer"] += 3;
+                points["Powerhouse"] += 2;
             }
             
             return points;
